@@ -38,9 +38,9 @@ def import_from_csv():
             if not user:
                 user = User(
                     row[
-                      '\ufeffFirst name'
+                      'First name'
                     ][0] if row[
-                      '\ufeffFirst name'
+                      'First name'
                     ] else '',
                     f"Doe{i}{row['Surname'][3:]}",
                     row['Email address'],
