@@ -1,5 +1,3 @@
-# import unittest
-# import coverage
 import csv
 from datetime import datetime
 from flask.cli import FlaskGroup
@@ -29,7 +27,9 @@ def import_from_csv():
         users_csv = csv.DictReader(csvfile, dialect='excel', delimiter=',')
         for i, row in enumerate(users_csv):
             departments.add(row['Department'])
-            department = Department.query.filter_by(name=row['Department']).first()
+            department = Department.query.filter_by(
+              name=row['Department']
+            ).first()
             if not department:
                 department = Department(row['Department'])
                 db.session.add(department)
@@ -37,7 +37,11 @@ def import_from_csv():
             user = User.query.filter_by(email=row['Email address']).first()
             if not user:
                 user = User(
-                    row['\ufeffFirst name'][0] if row['\ufeffFirst name'] else '',
+                    row[
+                      '\ufeffFirst name'
+                    ][0] if row[
+                      '\ufeffFirst name'
+                    ] else '',
                     f"Doe{i}{row['Surname'][3:]}",
                     row['Email address'],
                     True if row['Active'] == 'Yes' else False,
@@ -68,26 +72,6 @@ def import_from_csv():
         f'users from {len(departments)} departments.'
     )
     db.session.commit()
-
-# @cli.command()
-# def seed_db():
-#     db.session.add(
-#         User(username='noelflantier', email='n.flantier@example.com')
-#     )
-#     db.session.add(
-#         User(username='hubertbdelabatte', email='h.bdlbatte@example.com')
-#     )
-#     db.session.commit()
-
-
-# @cli.command()
-# def test():
-#     """Runs the tests without code coverage."""
-#     tests = unittest.TestLoader().discover('project/tests', pattern='test*.py')
-#     result = unittest.TextTestRunner(verbosity=2).run(tests)
-#     if result.wasSuccessful():
-#         return 0
-#     return 1
 
 
 if __name__ == '__main__':
