@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, render_template
 
 
 matching_blueprint = Blueprint(
@@ -16,3 +16,8 @@ def ping_pong():
             'message': 'pong'
         }
     )
+
+
+@matching_blueprint.route('/', methods=['GET'])
+def index():
+    return render_template('index.html')

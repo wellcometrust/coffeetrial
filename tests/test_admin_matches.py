@@ -15,6 +15,11 @@ class TestMatchesService(BaseTestCase):
             self.assertIn('pong', data['message'])
             self.assertIn('success', data['status'])
 
+    def test_main_no_users(self):
+        """Ensure the main route behave correctly."""
+        response = self.client.get('/')
+        self.assertEqual(response.status_code, 200)
+
 
 if __name__ == '__main__':
     unittest.main()
