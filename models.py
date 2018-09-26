@@ -61,6 +61,7 @@ class User(db.Model):
     active = db.Column(db.Boolean(), default=True, nullable=False)
     joined = db.Column(db.DateTime(), default=datetime.now())
     locked = db.Column(db.Boolean(), nullable=False, default=False)
+    is_admin = db.Column(db.Boolean(), nullable=False, default=False)
 
     skills = db.relationship('Skill', secondary=user_skill, lazy='subquery',
                              backref=db.backref('user', lazy=True))
