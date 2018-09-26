@@ -45,7 +45,7 @@ class Match(db.Model):
 class User(db.Model):
 
     def __init__(self, firstname, lastname, email,
-                 active, joined, department_id):
+                 active, department_id, joined=None):
         self.firstname = firstname
         self.lastname = lastname
         self.email = email
@@ -77,6 +77,14 @@ class User(db.Model):
         db.ForeignKey('department.id'),
         nullable=False
     )
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'firstname': self.firstname,
+            'lastname': self.lastname,
+            'email': self.email,
+        }
 
 
 class Department(db.Model):
