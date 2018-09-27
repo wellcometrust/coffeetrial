@@ -1,28 +1,173 @@
-.App {
+.page {
+  padding-top: 70px;
+  min-width: 400px;
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+button {
+  font-size: 1.125rem;
+  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
+  clear: none;
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0 12.5px 10px 0;
+  margin: 0 0.78125rem 0.625rem 0;
+  clear: both;
+  line-height: 22px;
+  padding-top: 9px;
+  padding-bottom: 9px;
+  height: auto;
+  float: none;
+  background-color: #B9E6EB;
+  background-image: linear-gradient(#B9E6EB 0%, #B9E6EB 50%, #62C0CE 50%, #62C0CE 100%);
+  background-size: 100% 200%;
+  background-position: 0 0;
+  transition: background-position 350ms;
+  max-width: 400px;
+  max-width: 25rem;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+  margin: 0 8px 4px 0;
+  margin: 0 0.5rem 0.25rem 0;
+  padding: 9px 15px;
+  padding: 0.5625rem 0.9375rem;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
+  display: inline-block;
+  height: 22px;
+  line-height: 22px;
+  min-width: auto;
+  overflow: visible;
   text-align: center;
+  text-decoration: none;
+  text-shadow: none;
+  transition: background 350ms;
+  width: auto;
+  min-width: 100px;
+}
+button:hover, button:focus {
+  background-position: 0 100%;
+  color: #1F2E30;
+  font-size: 1.125rem;
+}
+button a {
+  color: black;
+  text-underline: none;
+  text-decoration: none;
+}
+.card {
+//width: 282px;
+//width: 17.625rem;
+  margin-right: 0;
+  margin-top: 20px;
+  margin-bottom: 20px;
+//height: 466px;
+//height: 29.125rem;
+//width: 267px;
+//width: 16.6875rem;
+  border-radius: 3px;
+  border-radius: 0.1875rem;
+  -webkit-transition: background-color 0.2s;
+  -ms-transition: background-color 0.2s;
+  -moz-transition: background-color 0.2s;
+  -o-transition: background-color 0.2s;
+  transition: background-color 0.2s;
+//display: inline-block;
+  display: block;
+  position: relative;
+  background-color: #F4F7F8;
+  border: 1px solid #DFE3E9;
+  padding: 15px;
+
+}
+.card p {
+  margin-top: 0;
+}
+.card h2 {
+  font-family: Wellcome-Bold;
+}
+.label {
+  font-weight: bold;
+}
+.header {
+  border-bottom-color: #FEC200;
+  border-bottom-width: 10px;
+  border-bottom-width: 0.625rem;
+  border-bottom-style: solid;
+  left: auto;
+  max-width: none;
+  padding: 0;
+  height: auto;
+  margin: 0 auto;
+  max-width: none;
+  padding: 0;
+  text-align: center;
+  white-space: nowrap;
+  background-color: #fff;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: 30;
+  display: block;
+}
+.header h1 {
+  line-height: 70px;
+  font-size: 30px;
+  display: inline-block;
+  margin-top: 0;
+  margin-bottom: 0;
+  vertical-align: center;
+}
+.header .coffee-gif {
+  height: 70px;
+  right: 0;
+  float: right;
+  display: inline-block;
+  margin-top: 0;
+  margin-bottom: 0;
+  vertical-align: center;
+}
+@font-face {
+  font-family: 'Wellcome-Bold';
+  src: url('/css/fonts/wellcome-bold-webfont.woff2') format('woff2'),
+  url('/css/fonts/wellcome-bold-webfont.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+body {
+  font-family: "Helvetica Neue";
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+h1 {
+  line-height: 3.25rem;
+  font-size: 2.5rem;
+  margin-bottom: 50px;
+  padding-top: 0.80001rem;
+  font-family: 'Wellcome-Bold';
+  margin-top: 50px;
 }
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+h2 {
+  font-size: 22px;
+  font-size: 1.375rem;
+  margin-bottom: 30px;
+  line-height: 27px;
+  line-height: 1.6875rem;
 }
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+p {
+  line-height: 1.75rem;
+  font-size: 1rem;
+  margin-bottom: 0.45499rem;
+  padding-top: 0.54501rem;
 }
