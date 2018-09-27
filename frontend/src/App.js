@@ -9,7 +9,6 @@ import './App.css';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 class App extends Component {
   render() {
-      console.log(TakeAPick);
     return (
       <div className="App">
         <Header />
@@ -20,7 +19,6 @@ class App extends Component {
                   <Route path="/match-maker" component={MatchMaker} />
                   <Route path="/please-confirm" component={PleaseConfirm} />
                   <Route path="/confirmation" component={Confirmation} />
-
               </div>
           </Router>
 
