@@ -2,7 +2,7 @@ import json
 import unittest
 from app import db
 from tests.base import BaseTestCase
-from models import User, Department
+from models import Department
 
 
 def _add_department():
