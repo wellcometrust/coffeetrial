@@ -31,6 +31,7 @@ def _add_round():
     round = Round(datetime.now())
     db.session.add(round)
     db.session.commit()
+    return round
 
 
 def _add_match(user_1, user_2):
@@ -66,12 +67,80 @@ class TestMatchingService(BaseTestCase):
         _add_user('george', 'doe', 'g.doe@example.com')
         _add_user('vince', 'doe', 'v.doe@example.com')
         _add_match(user, user_2)
-        response = self.client.get(f'/match/{user.id}/profiles')
+        response = self.client.get(f'/match/{user.id}')
         self.assertEqual(response.status_code, 200)
         self.assertTrue(len(response.json) > 0)
         ids = [user['id'] for user in response.json]
         self.assertNotIn(user.id, ids)
         self.assertNotIn(user_2.id, ids)
+
+    def test_match_users(self):
+        """Ensure the select route works and matches profiles."""
+        _add_department()
+        _add_round()
+        user_1 = _add_user('john', 'doe', 'j.doe@example.com')
+        user_2 = _add_user('dany', 'doe', 'd.doe@example.com')
+        with self.client:
+            response = self.client.post(
+                '/match',
+                data=json.dumps({
+                    'user_1_id': user_1.id,
+                    'user_2_id': user_2.id
+                }),
+                content_type='application/json',
+            )
+            self.assertEqual(response.status_code, 201)
+            data = json.loads(response.data.decode(encoding='utf-8'))
+            self.assertIn('Users successfully matched!', data['message'])
+            self.assertIn('success', data['status'])
+
+    def test_no_match_locked_users(self):
+        """Ensure the select route works and matches profiles."""
+        _add_department()
+        _add_round()
+        user_1 = _add_user('john', 'doe', 'j.doe@example.com')
+        user_2 = _add_user('dany', 'doe', 'd.doe@example.com')
+        user_2.locked = True
+        db.session.add(user_2)
+        db.session.commit()
+        with self.client:
+            response = self.client.post(
+                '/match',
+                data=json.dumps({
+                    'user_1_id': user_1.id,
+                    'user_2_id': user_2.id
+                }),
+                content_type='application/json',
+            )
+            self.assertEqual(response.status_code, 400)
+            data = json.loads(response.data.decode(encoding='utf-8'))
+            self.assertIn('Couldn\'t match users (user locked).',
+                          data['message'])
+            self.assertIn('failed', data['status'])
+
+    def test_no_match_inactive_users(self):
+        """Ensure the select route works and matches profiles."""
+        _add_department()
+        _add_round()
+        user_1 = _add_user('john', 'doe', 'j.doe@example.com')
+        user_2 = _add_user('andy', 'doe', 'a.doe@example.com')
+        user_2.active = False
+        db.session.add(user_2)
+        db.session.commit()
+        with self.client:
+            response = self.client.post(
+                '/match',
+                data=json.dumps({
+                    'user_1_id': user_1.id,
+                    'user_2_id': user_2.id
+                }),
+                content_type='application/json',
+            )
+            self.assertEqual(response.status_code, 400)
+            data = json.loads(response.data.decode(encoding='utf-8'))
+            self.assertIn('Couldn\'t match users (user inactive).',
+                          data['message'])
+            self.assertIn('failed', data['status'])
 
 
 if __name__ == '__main__':
