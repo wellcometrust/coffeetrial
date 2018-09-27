@@ -41,6 +41,13 @@ class Match(db.Model):
     user_2 = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     round = db.Column(db.Integer, db.ForeignKey('round.id'), nullable=False)
 
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'user_1': User.query.filter_by(id=self.user_1).first().to_dict(),
+            'user_2': User.query.filter_by(id=self.user_2).first().to_dict(),
+        }
+
 
 class User(db.Model):
 

@@ -1,4 +1,5 @@
 import csv
+import unittest
 from datetime import datetime
 from flask.cli import FlaskGroup
 from models import User, Department, Round, Match
@@ -21,8 +22,6 @@ def import_from_csv():
     departments = set([])
     users = []
     matches = []
-    round = Round(datetime.now())
-    db.session.add(round)
     with open('datasets/dataset.csv') as csvfile:
         users_csv = csv.DictReader(csvfile, dialect='excel', delimiter=',')
         for i, row in enumerate(users_csv):
@@ -69,6 +68,11 @@ def import_from_csv():
                 continue
             for i in range(1, 27):
                 if row.get(f'R{i}'):
+                    round = Round.query.filter_by(id=i).first()
+                    if not round:
+                        round = Round(datetime.now())
+                        db.session.add(round)
+                        db.session.commit()
                     email = row.get(f'R{i}')
                     email = ''.join([
                         email[:1],
@@ -87,6 +91,16 @@ def import_from_csv():
         f'users from {len(departments)} departments.'
     )
     db.session.commit()
+
+
+@cli.command()
+def test():
+    """ Runs the tests without code coverage"""
+    tests = unittest.TestLoader().discover('tests', pattern='test*.py')
+    result = unittest.TextTestRunner(verbosity=2).run(tests)
+    if result.wasSuccessful():
+        return 0
+    return 1
 
 
 if __name__ == '__main__':
