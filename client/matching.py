@@ -4,7 +4,7 @@ from flask import Blueprint, jsonify, render_template
 matching_blueprint = Blueprint(
     'matching',
     __name__,
-    template_folder='./templates'
+    template_folder='templates/build'
 )
 
 
