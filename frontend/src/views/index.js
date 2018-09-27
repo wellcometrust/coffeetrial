@@ -1,13 +1,12 @@
 import React from 'react';
 import Button from '../components/button';
 import Colleague from '../components/colleague';
-import Header from '../components/header';
 export default () =>
 <div className="page">
     <h1> Welcome </h1>
     <p> Random Coffeetrials are a fun way to get to know new colleagues. </p>
     <h2>I'm happy to take part</h2>
-    <Button text={'Yes'} link='/take-your-pick'/>
+    <Button text={'Yes'} link={{href: '/take-your-pick', state: {}}}/>
     <Button text={'No'} link='/'/>
     <h2>Next round</h2>
     <p>The next round of Random Coffee Trials will take place from 1.-30. November 2018.</p>
