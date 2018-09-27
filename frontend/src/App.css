@@ -171,3 +171,8 @@ p {
   margin-bottom: 0.45499rem;
   padding-top: 0.54501rem;
 }
+
+.blurred-text {
+  color: transparent;
+  text-shadow: 0 0 15px rgba(0,0,0,0.5);
+}
