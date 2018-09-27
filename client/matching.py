@@ -6,7 +6,7 @@ from models import User, Match
 matching_blueprint = Blueprint(
     'matching',
     __name__,
-    template_folder='templates/build'
+    template_folder='./templates'
 )
 
 
