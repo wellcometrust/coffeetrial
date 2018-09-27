@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "postbuild": "mv build ../client/templates",
+    "postbuild": "mv build/static ../static && mv build/* ../client/templates",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
