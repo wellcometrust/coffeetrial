@@ -1,10 +1,9 @@
-import "../css/styles.scss";
-import Button from '../../frontend/src/components/button';
-import Colleague from '../../frontend/src/components/colleague';
-import Header from '../../frontend/src/components/header';
+import React from 'react';
+import Button from '../components/button';
+import Colleague from '../components/colleague';
+import Header from '../components/header';
 export default () =>
 <div className="page">
-    <Header/>
     <h1> Welcome </h1>
     <p> Random Coffeetrials are a fun way to get to know new colleagues. </p>
     <h2>I'm happy to take part</h2>

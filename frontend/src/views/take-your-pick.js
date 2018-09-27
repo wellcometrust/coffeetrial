@@ -1,10 +1,8 @@
-import "../css/styles.scss";
-import Button from '../../frontend/src/components/button';
-import Header from '../../frontend/src/components/header';
+import React from 'react';
+import Button from '../components/button';
 
 export default () =>
     <div className="page">
-        <Header/>
         <h1> Hi, find your Coffeetrial colleague  </h1>
         <p>The next round of Random Coffee Trials will take place from
             1. - 30. November 2018. 541 colleagues have signed up to take part.</p>
@@ -16,7 +14,7 @@ export default () =>
             <p>
                 If you have not been matched already, you can pick a colleague for the next round from a random shortlist of 3 candidates.
             </p>
-            <Button text='Take your pick'/>
+            <Button text='Take your pick' link='/match-maker'/>
         </div>
         <h2>Don't want to pick?</h2>
         <p>

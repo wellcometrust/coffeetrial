@@ -1,7 +1,9 @@
-import Link from 'next/link'
+import React from 'react';
+import {Link} from 'react-router-dom';
+
 export default ({text, link}) =>
     <button>
-        <Link href={link}>
+        <Link to={link}>
         {text}
         </Link>
     </button>
