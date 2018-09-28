@@ -176,3 +176,8 @@ p {
   color: transparent;
   text-shadow: 0 0 15px rgba(0,0,0,0.5);
 }
+.loading-gif {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
