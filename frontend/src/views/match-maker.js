@@ -17,10 +17,13 @@ export default class MatchMaker extends React.Component {
             .then(res => res.json())
             .then(
                 (result) => {
-                    this.setState({
-                        isLoaded: true,
-                        matches: result
-                    });
+                    setTimeout(()=>{
+                        this.setState({
+                            isLoaded: true,
+                            matches: result
+                        });
+                    }, 2000);
+
                 },
                 // Note: it's important to handle errors here
                 // instead of a catch() block so that we don't swallow
