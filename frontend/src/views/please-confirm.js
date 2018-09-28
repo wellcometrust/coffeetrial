@@ -15,40 +15,56 @@ export default class PleaseConfirm extends React.Component {
     }
 
     componentDidMount() {
+        let url = '/match';
+        let body = {};
         if (this.state.matchType === 'random') {
-            console.log('haiii');
-        } else {
-            fetch('/match', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    user_1_id: this.state.userId,
-                    user_2_id: this.state.match.id,
-                })
+            url += '/random';
+            body = {
+                user_id: '1'
+            }
+            // hack for now
+            this.setState({
+                ...this.state,
+                match: {
+                    id: '23',
+                    firstname: 'L ',
+                    lastname: 'Doe425ner',
+                }
             })
-                .then(res => res.json())
-                .then(
-                    (result) => {
-                        console.log(result);
-                        this.setState({
-                            isLoaded: true,
-                            matches: result
-                        });
-                    },
-                    // Note: it's important to handle errors here
-                    // instead of a catch() block so that we don't swallow
-                    // exceptions from actual bugs in components.
-                    (error) => {
-                        this.setState({
-                            isLoaded: true,
-                            error
-                        });
-                    }
-                )
+        } else {
+            body = {
+                user_1_id: this.state.userId,
+                user_2_id: this.state.match.id,
+            }
         }
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(body)
+        })
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    console.log(result);
+                    this.setState({
+                        isLoaded: true,
+                        matches: result
+                    });
+
+                },
+                // Note: it's important to handle errors here
+                // instead of a catch() block so that we don't swallow
+                // exceptions from actual bugs in components.
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    });
+                }
+            )
 
     }
 
@@ -78,7 +94,12 @@ export default class PleaseConfirm extends React.Component {
                     />
                     <h2>Can't accept?</h2>
                     <p>If you happen to know {this.state.match.firstname} {this.state.match.lastname} already, you can start again.</p>
-                    <Button text={'Start again'} link={{href: '/match-maker', state: {}}}/>
+                    <Button text={'Start again'} link={
+                        this.state.matchType === 'random' ?
+                            {href: '/please-confirm', state: {matchType: 'random'}} :
+                            {href: 'match-maker', state: {}}
+                    }
+                        />
                 </div>
             );
         }
