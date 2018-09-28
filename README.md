@@ -20,3 +20,12 @@ You can use the manage.py file to create the table locally and import the data.
     - A `datasets` folder
     - Within this folder: a `dataset.csv` and a `matches.csv` file containing the user and matches data
 
+## Build and Serve front end
+The front end is built in react. Cd into the frontend folder. To build and then serve:
+- `cd frontend`
+- `npm i`
+- `npm run build`
+- In a different terminal run `pipenv shell`
+- `python manage.py run`
+- Go to localhost:5000
+If you make any changes you have to rebuild and then restart the flask server. 
