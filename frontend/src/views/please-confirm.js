@@ -22,6 +22,15 @@ export default class PleaseConfirm extends React.Component {
             body = {
                 user_id: '1'
             }
+            // hack for now
+            this.setState({
+                ...this.state,
+                match: {
+                    id: '23',
+                    firstname: 'L ',
+                    lastname: 'Doe425ner',
+                }
+            })
         } else {
             body = {
                 user_1_id: this.state.userId,
@@ -44,17 +53,7 @@ export default class PleaseConfirm extends React.Component {
                         isLoaded: true,
                         matches: result
                     });
-                    // hack for now
-                    if (!this.state.match) {
-                        this.setState({
-                            ...this.state,
-                            match: {
-                                id: '23',
-                                firstname: 'L ',
-                                lastname: 'Doe425ner',
-                            }
-                        })
-                    }
+
                 },
                 // Note: it's important to handle errors here
                 // instead of a catch() block so that we don't swallow
@@ -81,7 +80,6 @@ export default class PleaseConfirm extends React.Component {
         } else {
             return (
                 <div className="page">
-                    <img className="coffee-gif" src="https://media1.tenor.com/images/af7654602fd50d8f32b277db914cb14d/tenor.gif?itemid=8616709"/>
                     <h1> We have found you a Coffeetrial colleague</h1>
                     <Colleague
                         firstname={this.state.match.firstname}
@@ -95,10 +93,10 @@ export default class PleaseConfirm extends React.Component {
                             state: {match: this.state.match}}}
                     />
                     <h2>Can't accept?</h2>
-                    <p>If you happen to know Christine already, you can start again.</p>
+                    <p>If you happen to know {this.state.match.firstname} {this.state.match.lastname} already, you can start again.</p>
                     <Button text={'Start again'} link={
                         this.state.matchType === 'random' ?
-                            {href: '/please-confirm', state: {matchtype: 'random'}} :
+                            {href: '/please-confirm', state: {matchType: 'random'}} :
                             {href: 'match-maker', state: {}}
                     }
                         />
