@@ -90,15 +90,29 @@ def set_match():
     return jsonify(response_item), 201
 
 
-    match = Match(user_1.id, user_2.id, current_round.id)
-    db.session.add(match)
+@matching_blueprint.route('/match/random', methods=['POST'])
+def set_match_random():
+    response_item = {
+        'status': 'failed',
+        'message': '',
+    }
+    post_data = request.get_json()
+    user = User.query.get_or_404(post_data.get('user_id'))
 
-    user_1.locked = True
-    user_2.locked = True
+    users = get_random_user_set(user)
+    if not users:
+        response_item['message'] = 'No free user to match with.'
+        return jsonify(response_item), 400
 
-    db.session.add(user_1)
-    db.session.add(user_2)
-    db.session.commit()
+    user_2 = random.choice(users)
+    user_2 = User.query.get_or_404(user_2['id'])
+
+    match = match_users(user, user_2)
+    if not match['status']:
+        response_item['message'] = f"Couldn't match users ({match['msg']})."
+        return jsonify(response_item), 400
+
+    response_item['match'] = match['object']
     response_item['message'] = 'Users successfully matched!'
     response_item['status'] = 'success'
     return jsonify(response_item), 201
