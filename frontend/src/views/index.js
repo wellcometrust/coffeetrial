@@ -14,5 +14,12 @@ export default () =>
     <a>View paired colleague</a>
     <a>Skip round</a>
     <h2>Profile</h2>
-    <Colleague name='Ben Smith' following='Wellbeing, Volunteering, Wellies' skills='SQL, Data Analysis, excel'/>
+    <Colleague
+        firstname='Ben'
+        lastname='Smith'
+        following='Wellbeing, Volunteering, Wellies'
+        skills='SQL, Data Analysis, excel'
+        buttonText='Update profile on trustnet'
+        link={{href: '/'}}
+    />
 </div>
