@@ -8,7 +8,7 @@ db = SQLAlchemy()
 
 def create_app(script_info=None):
     # instantiate the app
-    app = Flask(__name__)
+    app = Flask(__name__,  static_folder='frontend/build')
 
     # set config
     app_settings = os.getenv('APP_SETTINGS')
