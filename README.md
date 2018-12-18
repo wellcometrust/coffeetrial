@@ -1,17 +1,23 @@
 # ☕ Randomised Coffee Trial
 ## How to install this code
 
-This repository uses Pipenv, if you don't have it, you can find install instructions here:
- - https://pipenv.readthedocs.io/en/latest/
+This repository uses Python virtualenv, if you don't have it, you can find install instructions here:
+ - https://virtualenv.pypa.io/en/latest/
 
-Once you installed pipenv, just run `pipenv install` to install the requirements.
-This project uses SQLalchemy, and requires you to setup the database url in the config file.
+Then go to the root folder of this repository and run:
+```
+virtualenv env
+source env/bin/activate
+pip install -r requirements.txt
+```
+This project uses SQLalchemy, and requires you to setup the database url as an environment variable.
+
 The configuration can be selected by exporting the `APP_SETTINGS` environment variable and settings it to one of these:
  - `config.DevelopmentConfig`
  - `config.ProductionConfig`
  - `config.TestingConfig`
 
-You can add a local configuration is you feel the need, but please be sure not to push it on this repository.
+You can add a local configuration is you feel the need, but please be sure not to push it to this repository.
 
 ## Manage.py file
 You can use the manage.py file to create the table locally and import the data.
@@ -28,4 +34,4 @@ The front end is built in react. Cd into the frontend folder. To build and then 
 - In a different terminal run `pipenv shell`
 - `python manage.py run`
 - Go to localhost:5000
-If you make any changes you have to rebuild and then restart the flask server. 
+If you make any changes you have to rebuild and then restart the flask server.
