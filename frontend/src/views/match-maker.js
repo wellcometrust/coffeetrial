@@ -13,7 +13,7 @@ export default class MatchMaker extends React.Component {
     }
 
     componentDidMount() {
-        fetch("/match/1")
+        fetch("http://127.0.0.1:5001/match/1")
             .then(res => res.json())
             .then(
                 (result) => {
@@ -40,7 +40,7 @@ export default class MatchMaker extends React.Component {
             return <img alt="" src='https://payload484.cargocollective.com/1/15/505014/11995996/ErrorPage_Connection_Dino_4.gif' className="loading-gif"/>
         } else if (!isLoaded) {
             return <div className="page">
-                    <img alt="" src='https://ph-files.imgix.net/5325ada6-b985-47d0-b37f-6dc2520e4076?auto=format&auto=compress&codec=mozjpeg&cs=strip' class="loading-gif"/>
+                    <img alt="" src='https://ph-files.imgix.net/5325ada6-b985-47d0-b37f-6dc2520e4076?auto=format&auto=compress&codec=mozjpeg&cs=strip' className="loading-gif"/>
                 </div>
             } else {
             return (

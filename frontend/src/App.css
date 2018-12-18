@@ -7,7 +7,7 @@
   padding-bottom: 200px;
 }
 
-linkbutton {
+.button-like {
   font-size: 1.125rem;
   margin-bottom: 8px;
   margin-bottom: 0.5rem;
@@ -56,12 +56,12 @@ linkbutton {
   width: auto;
   min-width: 100px;
 }
-linkbutton:hover, linkbutton:focus {
+.button-like:hover, .button-like:focus {
   background-position: 0 100%;
   color: #1F2E30;
   font-size: 1.125rem;
 }
-linkbutton a {
+.button-like a {
   color: black;
   text-underline: none;
   text-decoration: none;

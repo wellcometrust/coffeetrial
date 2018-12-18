@@ -15,7 +15,7 @@ export default class PleaseConfirm extends React.Component {
     }
 
     componentDidMount() {
-        let url = '/match';
+        let url = 'localhost:5001/match';
         let body = {};
         if (this.state.matchType === 'random') {
             url += '/random';
