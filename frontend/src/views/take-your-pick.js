@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '../components/button';
+import LinkButton from '../components/linkbutton';
 
 export default () =>
     <div className="page">
@@ -14,7 +14,7 @@ export default () =>
             <p>
                 If you have not been matched already, you can pick a colleague for the next round from a random shortlist of 3 candidates.
             </p>
-            <Button text='Take your pick' link={{href:'/match-maker', state:{}}}/>
+            <LinkButton text='Take your pick' link={{href:'/match-maker', state:{}}}/>
         </div>
         <h2>Don't want to pick?</h2>
         <p>

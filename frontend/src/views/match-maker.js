@@ -1,6 +1,6 @@
 import React from 'react';
 import Colleague from '../components/colleague';
-import Button from '../components/button';
+import LinkButton from '../components/linkbutton';
 export default class MatchMaker extends React.Component {
     constructor(props) {
         super(props);
@@ -37,10 +37,10 @@ export default class MatchMaker extends React.Component {
     render() {
         const { error, isLoaded, matches } = this.state;
         if (error) {
-            return <img src='https://payload484.cargocollective.com/1/15/505014/11995996/ErrorPage_Connection_Dino_4.gif' className="loading-gif"/>
+            return <img alt="" src='https://payload484.cargocollective.com/1/15/505014/11995996/ErrorPage_Connection_Dino_4.gif' className="loading-gif"/>
         } else if (!isLoaded) {
             return <div className="page">
-                    <img src='https://ph-files.imgix.net/5325ada6-b985-47d0-b37f-6dc2520e4076?auto=format&auto=compress&codec=mozjpeg&cs=strip' class="loading-gif"/>
+                    <img alt="" src='https://ph-files.imgix.net/5325ada6-b985-47d0-b37f-6dc2520e4076?auto=format&auto=compress&codec=mozjpeg&cs=strip' class="loading-gif"/>
                 </div>
             } else {
             return (
@@ -65,7 +65,7 @@ export default class MatchMaker extends React.Component {
                     }
                     <h2>Can't decide?</h2>
                     <p>We will find you a complete random match.</p>
-                    <Button text='Get me anyone' link={{href: '/please-confirm', state: {matchType: 'random'} }}/>
+                    <LinkButton text='Get me anyone' link={{href: '/please-confirm', state: {matchType: 'random'} }}/>
                 </div>
             );
         }
