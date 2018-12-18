@@ -9,4 +9,5 @@ dist
 .next
 package-lock.json
 static
+build
 client/templates/*
