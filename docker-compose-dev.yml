@@ -1,0 +1,28 @@
+version: '3.6'
+
+services:
+
+  api:
+    build:
+      context: ./api
+      dockerfile: ./Dockerfile
+    volumes:
+      - './api:/app'
+    ports:
+      - 5001:5000
+    environment:
+      - FLASK_ENV=development
+      - APP_SETTINGS=config.DevelopmentConfig
+      - DATABASE_URL=sqlite:////rct/db.sqlite3
+      - DATABASE_TEST_URL=sqlite:////rct/db_test.sqlite3
+
+  client:
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile
+    volumes:
+      - './frontend:/rct-front'
+    ports:
+      - 3001:3000
+    environment:
+      - SERVICES_URL=127.0.0.1:5001

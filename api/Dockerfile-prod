@@ -3,8 +3,7 @@ FROM python:3.6.4-slim-stretch
 
 WORKDIR /rct
 
-ENV APP_SETTINGS=config.DevelopmentConfig
-ENV DATABASE_URL=sqlite:////rct/db.sqlite3
+ENV APP_SETTINGS=config.ProductionConfig
 
 COPY ./admin/matches.py /rct/admin/matches.py
 COPY ./admin/round.py /rct/admin/round.py
@@ -21,6 +20,8 @@ COPY ./config.py /rct/config.py
 COPY ./requirements.txt /rct/requirements.txt
 RUN pip install -r requirements.txt
 
-RUN python manage.py recreate-db
+# add entrypoint.sh
+COPY ./entrypoint.sh /rct/entrypoint-prod.sh
+RUN chmod +x /rct/entrypoint-prod.sh
 
-CMD ["python", "manage.py", "run", "-h0.0.0.0"]
+CMD ["/rct/entrypoint-prod.sh"]
