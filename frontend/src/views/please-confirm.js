@@ -7,7 +7,7 @@ export default class PleaseConfirm extends React.Component {
         this.state = {
             error: null,
             isLoaded: false,
-            // matches: [],
+            matches: [],
             userId: '1',
             match: props.location.state.match,
             matchType: props.location.state.matchType ? props.location.state.matchType : null
@@ -15,12 +15,12 @@ export default class PleaseConfirm extends React.Component {
     }
 
     componentDidMount() {
-        let url = 'localhost:5001/match';
+        let url = 'http://localhost:5001/match';
         let body = {};
         if (this.state.matchType === 'random') {
             url += '/random';
             body = {
-                user_id: '1'
+                user_id: this.state.userId
             }
         } else {
             body = {
@@ -70,13 +70,23 @@ export default class PleaseConfirm extends React.Component {
     }
 
     render() {
-        const { error, isLoaded } = this.state;
+        const { error, isLoaded, matches } = this.state;
         if (error) {
-            return <img alt="" src='https://payload484.cargocollective.com/1/15/505014/11995996/ErrorPage_Connection_Dino_4.gif' className="loading-gif"/>
+            return  <div className="page">
+                        <img
+                            alt=""
+                            src='https://payload484.cargocollective.com/1/15/505014/11995996/ErrorPage_Connection_Dino_4.gif'
+                            className="loading-gif"
+                        />
+                    </div>
         } else if (!isLoaded) {
             return <div className="page">
-                <img alt="" src='https://ph-files.imgix.net/5325ada6-b985-47d0-b37f-6dc2520e4076?auto=format&auto=compress&codec=mozjpeg&cs=strip' class="loading-gif"/>
-            </div>
+                        <img
+                            alt=""
+                            src="https://ph-files.imgix.net/5325ada6-b985-47d0-b37f-6dc2520e4076?auto=format&auto=compress&codec=mozjpeg&cs=strip"
+                            className="loading-gif"
+                        />
+                    </div>
 
         } else {
             return (

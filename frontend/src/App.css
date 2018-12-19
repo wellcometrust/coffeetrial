@@ -101,7 +101,7 @@
   font-weight: bold;
 }
 .header {
-  border-bottom-color: #FEC200;
+  border-bottom-color: #009bb2;
   border-bottom-width: 10px;
   border-bottom-width: 0.625rem;
   border-bottom-style: solid;
@@ -112,7 +112,7 @@
   margin: 0 auto;
   max-width: none;
   padding: 0;
-  text-align: center;
+  text-align: left;
   white-space: nowrap;
   background-color: #fff;
   left: 0;
@@ -131,6 +131,9 @@
   margin-bottom: 0;
   vertical-align: center;
 }
+.header .site-logo {
+    margin: auto;
+}
 .header .coffee-gif {
   height: 70px;
   right: 0;
@@ -142,8 +145,8 @@
 }
 @font-face {
   font-family: 'Wellcome-Bold';
-  src: url('/css/fonts/wellcome-bold-webfont.woff2') format('woff2'),
-  url('/css/fonts/wellcome-bold-webfont.woff') format('woff');
+  src: url('fonts/wellcome-bold-webfont.woff2') format('woff2'),
+  url('fonts/wellcome-bold-webfont.woff') format('woff');
   font-weight: bold;
   font-style: normal;
 }
