@@ -19,6 +19,8 @@ COPY ./config.py /rct/config.py
 
 
 COPY ./requirements.txt /rct/requirements.txt
+COPY ./tests /rct/tests
+
 RUN pip install -r requirements.txt
 
 RUN python manage.py recreate-db
