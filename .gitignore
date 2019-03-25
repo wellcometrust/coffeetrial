@@ -11,3 +11,4 @@ package-lock.json
 static
 build
 client/templates/*
+!datasets/.gitkeep
