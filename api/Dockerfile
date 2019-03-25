@@ -1,28 +1,8 @@
 # Use a basic Python image
-FROM python:3.6.4-slim-stretch
+FROM rct.base
 
-WORKDIR /rct
+# add entrypoint.sh
+COPY ./entrypoint.sh /rct/entrypoint.sh
+RUN chmod +x /rct/entrypoint.sh
 
-ENV APP_SETTINGS=config.DevelopmentConfig
-ENV DATABASE_URL=sqlite:////rct/db.sqlite3
-
-COPY ./admin/matches.py /rct/admin/matches.py
-COPY ./admin/round.py /rct/admin/round.py
-COPY ./admin/user.py /rct/admin/user.py
-
-COPY ./client/matching.py /rct/client/matching.py
-
-COPY ./manage.py /rct/manage.py
-COPY ./models.py /rct/models.py
-COPY ./app.py /rct/app.py
-COPY ./config.py /rct/config.py
-
-
-COPY ./requirements.txt /rct/requirements.txt
-COPY ./tests /rct/tests
-
-RUN pip install -r requirements.txt
-
-RUN python manage.py recreate-db
-
-CMD ["python", "manage.py", "run", "-h0.0.0.0"]
+CMD ["/rct/entrypoint.sh"]
