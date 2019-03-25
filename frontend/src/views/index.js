@@ -1,18 +1,18 @@
 import React from 'react';
-import Button from '../components/button';
+import LinkButton from '../components/linkbutton';
 import Colleague from '../components/colleague';
 export default () =>
 <div className="page">
     <h1> Welcome </h1>
     <p> Random Coffeetrials are a fun way to get to know new colleagues. </p>
     <h2>I'm happy to take part</h2>
-    <Button text={'Yes'} link={{href: '/take-your-pick', state: {}}}/>
-    <Button text={'No'} link='/'/>
+    <LinkButton text={'Yes'} link={{href: '/take-your-pick'}}/>
+    <LinkButton text={'No'} link={{href: '/'}}/>
     <h2>Next round</h2>
     <p>The next round of Random Coffee Trials will take place from 1.-30. November 2018.</p>
-    <a>Find a random match</a> or
-    <a>View paired colleague</a>
-    <a>Skip round</a>
+    <a href="/">Find a random match</a> or
+    <a href="/">View paired colleague</a>
+    <a href="/">Skip round</a>
     <h2>Profile</h2>
     <Colleague
         firstname='Ben'

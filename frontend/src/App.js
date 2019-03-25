@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from './components/header';
 import Home from './views/index';
+import Login from './views/login';
 import TakeAPick from './views/take-your-pick';
 import MatchMaker from './views/match-maker';
 import PleaseConfirm from './views/please-confirm';
@@ -15,6 +16,7 @@ class App extends Component {
           <Router>
               <div>
                   <Route exact path="/" component={Home} />
+                  <Route path="/authentication" component={Login} />
                   <Route path="/take-your-pick" component={TakeAPick} />
                   <Route path="/match-maker" component={MatchMaker} />
                   <Route path="/please-confirm" component={PleaseConfirm} />

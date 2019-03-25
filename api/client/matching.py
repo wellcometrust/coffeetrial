@@ -1,5 +1,6 @@
 import random
-from flask import Blueprint, jsonify, render_template, request
+import os
+from flask import Blueprint, jsonify, request, send_from_directory
 from app import db
 from models import User, Match, Round
 
@@ -55,9 +56,14 @@ def ping_pong():
     )
 
 
-@matching_blueprint.route('/', methods=['GET'])
-def index():
-    return render_template('index.html')
+# Serve React App
+@matching_blueprint.route('/', defaults={'path': ''})
+@matching_blueprint.route('/<path:path>')
+def serve(path):
+    if path != "" and os.path.exists("frontend/build/" + path):
+        return send_from_directory('frontend/build', path)
+    else:
+        return send_from_directory('frontend/build', 'index.html')
 
 
 @matching_blueprint.route('/match/<int:user>', methods=['GET'])

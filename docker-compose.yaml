@@ -1,0 +1,38 @@
+version: '3.6'
+
+services:
+
+  db:
+    image: postgres:11.2-alpine
+    ports:
+      - 5432:5432
+    environment:
+        POSTGRES_PASSWORD: development
+    volumes:
+      - ./db/initdb:/docker-entrypoint-initdb.d
+
+  api:
+    build:
+      context: api
+      dockerfile: Dockerfile
+    volumes:
+      - ./api:/rct
+      - ./datasets:/rct/datasets
+    ports:
+      - 5001:5000
+    environment:
+      - FLASK_ENV=development
+      - APP_SETTINGS=config.DevelopmentConfig
+      - DATABASE_URL=postgresql://postgres:development@db:5432/rct
+      - DATABASE_TEST_URL=postgresql://postgres:development@db:5432/rct_test
+
+  # client:
+  #   build:
+  #     context: frontend
+  #     dockerfile: Dockerfile
+  #   volumes:
+  #     - 'frontend:/rct-front'
+  #   ports:
+  #     - 3001:3000
+  #   environment:
+  #     - SERVICES_URL=127.0.0.1:5001

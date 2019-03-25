@@ -1,0 +1,23 @@
+{% extends 'admin/base.html' %}
+
+{% block content %}
+<form action="{{ url_for('user.get_login') }}" method="post" class="login__form">
+    <!-- TODO: CSRF -->
+    <div class="login__creds_box">
+        <div>
+            <label for="user_email">Email:
+                <input name="user_email" type="email" id="user_email" class="login__form__email">
+            </label>
+        </div>
+        <div>
+            <label for="user_password">Password:
+                <input name="user_password" type="password" id="user_password" class="login__form__password">
+            </label>
+        </div>
+
+        <button type="submit" class="login__form__submit">
+            Login
+        </button>
+    </div>
+</form>
+{% endblock %}

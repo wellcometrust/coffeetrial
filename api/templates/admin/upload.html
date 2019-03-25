@@ -1,0 +1,19 @@
+{% extends 'admin/base.html' %}
+
+{% block content %}
+    <div class="uploads__box">
+        <form action="{{ url_for('matches.import_csv') }}" method="post" enctype="multipart/form-data">
+            <div>
+                <label for="data_file">Data file:
+                    <input name="data_file" type="file" id="data_file" class="uploads__box__input">
+                </label>
+            </div>
+            <div>
+                <label for="matches_file">Matches file:
+                    <input name="matches_file" type="file" id="matches_file" class="uploads__box__input">
+                </label>
+            </div>
+            <button type="submit">Import</button>
+        </form>
+    </div>
+{% endblock %}

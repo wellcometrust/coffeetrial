@@ -1,0 +1,22 @@
+# Use a basic Python image
+FROM python:3.6.4-slim-stretch
+
+WORKDIR /rct
+
+
+COPY ./admin/matches.py /rct/admin/matches.py
+COPY ./admin/round.py /rct/admin/round.py
+COPY ./admin/user.py /rct/admin/user.py
+
+COPY ./client/matching.py /rct/client/matching.py
+
+COPY ./manage.py /rct/manage.py
+COPY ./models.py /rct/models.py
+COPY ./app.py /rct/app.py
+COPY ./config.py /rct/config.py
+
+
+COPY ./requirements.txt /rct/requirements.txt
+COPY ./tests /rct/tests
+
+RUN pip install -r requirements.txt
