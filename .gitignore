@@ -2,7 +2,6 @@
 *.DS_Store
 *env
 datasets/*
-db*
 node_modules
 # build output
 dist
