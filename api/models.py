@@ -1,5 +1,5 @@
 from app import db
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 user_skill = db.Table(
@@ -51,8 +51,8 @@ class Match(db.Model):
 
 class User(db.Model):
 
-    def __init__(self, firstname, lastname, email,
-                 active, department_id, joined=None):
+    def __init__(self, firstname, lastname, email, active, department_id=None,
+                 joined=None):
         self.firstname = firstname
         self.lastname = lastname
         self.email = email
@@ -70,6 +70,14 @@ class User(db.Model):
     locked = db.Column(db.Boolean(), nullable=False, default=False)
     is_admin = db.Column(db.Boolean(), nullable=False, default=False)
 
+    auth_token = db.Column(db.String(64), nullable=True)
+    password = db.Column(db.String(128), nullable=True)
+    expiracy_time = db.Column(
+        db.DateTime(),
+        nullable=False,
+        default=datetime.now() - timedelta(days=2)
+    )
+
     skills = db.relationship('Skill', secondary=user_skill, lazy='subquery',
                              backref=db.backref('user', lazy=True))
     following = db.relationship(
@@ -82,7 +90,7 @@ class User(db.Model):
     department_id = db.Column(
         db.Integer,
         db.ForeignKey('department.id'),
-        nullable=False
+        nullable=True
     )
 
     def to_dict(self):
