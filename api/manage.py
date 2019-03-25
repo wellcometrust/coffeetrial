@@ -3,6 +3,7 @@ import unittest
 from datetime import datetime
 from flask.cli import FlaskGroup
 from models import User, Department, Round, Match
+from match_users import unlock_all_users, match_all_users
 
 from app import create_app, db
 
@@ -41,15 +42,11 @@ def import_from_csv():
                     row['Email address'][4:]
                 ])
                 user = User(
-                    row[
-                      'First name'
-                    ][0] if row[
-                      'First name'
-                    ] else '',
-                    f"Doe{i}{row['Surname'][3:]}",
-                    email,
-                    True if row['Active'] == 'Yes' else False,
-                    department.id
+                  firstname=row['First name'][0] if row['First name'] else '',
+                  lastname=f"Doe{i}{row['Surname'][3:]}",
+                  email=email,
+                  active=True if row['Active'] == 'Yes' else False,
+                  department_id=department.id
                 )
                 db.session.add(user)
             users.append(row)
@@ -101,6 +98,25 @@ def test():
     if result.wasSuccessful():
         return 0
     return 1
+
+
+@cli.command()
+def new_round():
+    """Runs a new match round:
+      * Unlock all users
+      * Create a new round
+      * Match all users together
+    """
+    round = Round(datetime.now())
+    db.session.add(round)
+    db.session.commit()
+
+    unlock_all_users()
+    unmatched = match_all_users()
+
+    print(unmatched)
+
+    return unmatched
 
 
 if __name__ == '__main__':
