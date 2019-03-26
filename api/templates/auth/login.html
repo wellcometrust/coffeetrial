@@ -1,7 +1,7 @@
-{% extends 'admin/base.html' %}
+{% extends 'base.html' %}
 
 {% block content %}
-<form action="{{ url_for('user.get_login') }}" method="post" class="login__form">
+<form action="{{ url_for('auth.get_login') }}" method="post" class="login__form">
     <!-- TODO: CSRF -->
     <div class="login__creds_box">
         <div>
@@ -15,7 +15,7 @@
             </label>
         </div>
 
-        <button type="submit" class="login__form__submit">
+        <button type="submit" class="button-like">
             Login
         </button>
     </div>
