@@ -1,11 +1,12 @@
 import tempfile
 import os
+import csv
 
 from datetime import datetime
 from flask import (Blueprint, jsonify, request, flash, redirect,
-                   url_for, render_template)
-from models import Match, Round
-from match_users import unlock_all_users, match_all_users, import_from_csv
+                   url_for, render_template, send_file)
+from models import Match, Round, User
+from match_users import (unlock_all_users, match_all_users, import_from_csv)
 from app import db
 from client.authentication import is_admin
 
@@ -40,6 +41,51 @@ def list_matches_cur_round():
         'round_id': cur_round.id,
         'matches': matches
     })
+
+
+@matches_blueprint.route('/admin/matches/spreadsheet', methods=['GET'])
+@is_admin
+def export_to_csv():
+    """Creates a csv file-like object containing all current round's matches.
+
+    Returns:
+      * current_matches: A csv file-like object
+    (e.g.: First User, Second User\n
+    john.doe@example.com, jane.doe@example.com\n)
+
+    """
+    cur_round = Round.query.order_by(Round.date.desc()).first()
+    cur_matches = Match.query.filter_by(round=cur_round.id).all()
+
+    unmatched_users = User.query.filter_by(locked=False, active=True).all()
+
+    with tempfile.TemporaryDirectory() as tfd:
+        export_date = datetime.now().strftime('%d%M%Y')
+        csv_path = os.path.join(tfd, f'matches_export_{export_date}.csv')
+        with open(csv_path, 'w+') as csv_tf:
+            fieldnames = ['First User', 'Second User']
+            writer = csv.DictWriter(csv_tf, fieldnames=fieldnames)
+            writer.writeheader()
+
+            for match in cur_matches:
+
+                # TODO: User a join instead
+                user_1 = User.query.filter_by(id=match.user_1).first()
+                user_2 = User.query.filter_by(id=match.user_2).first()
+                writer.writerow({
+                    'First User': user_1.email,
+                    'Second User': user_2.email,
+                })
+            for user in unmatched_users:
+                writer.writerow({
+                    'First User': user.email,
+                    'Second User': '',
+                })
+
+        return send_file(
+            csv_path,
+            as_attachment=True,
+        )
 
 
 @matches_blueprint.route('/admin/matches/<int:round_id>', methods=['GET'])
