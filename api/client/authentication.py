@@ -26,18 +26,27 @@ def _get_hashed_password(*args):
     return hashlib.sha256(password.encode()).hexdigest()
 
 
-def _is_user_logged():
-    """Check in the session for some user chredentials.
+def _get_logged_user():
+    """Check if the user is logged in or is using auth token.
 
     Returns:
-      * bool: True if a user is in the session, else False.
+      * bool: True if a user is authenticated, else False.
     """
-    auth_token = session.get('auth_token')
-    user = session.get('auth_user')
-    if auth_token and user:
-        db_user = User.query.filter_by(email=user).first()
+    auth_token = None
+    # If user is in session, uses session
+    if session.get('auth_token') and session.get('auth_user'):
+        auth_token = session.get('auth_token')
+
+    # Else, if user uses the json auth, check for request.json
+    if request.headers.get('Authorization'):
+        auth_token = request.headers.get('Authorization')
+
+    # Finally, try to authenticate with token
+    db_user = User.query.filter_by(auth_token=auth_token).first()
+    if auth_token and db_user:
         if db_user.expiracy_time > datetime.now():
             return db_user
+
     return False
 
 
@@ -55,7 +64,7 @@ def is_logged(func):
     """
     @wraps(func)
     def wrapper(*args, **kwargs):
-        if _is_user_logged():
+        if _get_logged_user():
             return func(*args, **kwargs)
         else:
             raise Unauthorized()
@@ -78,7 +87,7 @@ def is_admin(func):
     """
     @wraps(func)
     def wrapper(*args, **kwargs):
-        user = _is_user_logged()
+        user = _get_logged_user()
         if user:
             if user.is_admin:
                 return func(*args, **kwargs)
@@ -110,6 +119,7 @@ def get_login():
             ).first()
             if user and user.password is not None:
                 auth_token = _get_hashed_password(
+                    user.email,
                     str(datetime.now()),
                     post_data.get('user_password'),
                 )
