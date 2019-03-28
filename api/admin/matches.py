@@ -1,13 +1,14 @@
 import tempfile
 import os
 
+from datetime import datetime
 from flask import (Blueprint, jsonify, request, flash, redirect,
                    url_for, render_template)
 from models import Match, Round
 from match_users import unlock_all_users, match_all_users, import_from_csv
 from app import db
+from client.authentication import is_admin
 
-from datetime import datetime
 
 matches_blueprint = Blueprint(
     'matches',
@@ -17,6 +18,7 @@ matches_blueprint = Blueprint(
 
 
 @matches_blueprint.route('/admin/ping', methods=['GET'])
+@is_admin
 def ping_pong():
     return jsonify(
         {
@@ -27,6 +29,7 @@ def ping_pong():
 
 
 @matches_blueprint.route('/admin/matches', methods=['GET'])
+@is_admin
 def list_matches_cur_round():
     cur_round = Round.query.order_by(Round.date.desc()).first()
     matches = Match.query.filter_by(round=cur_round.id).all()
@@ -40,6 +43,7 @@ def list_matches_cur_round():
 
 
 @matches_blueprint.route('/admin/matches/<int:round_id>', methods=['GET'])
+@is_admin
 def list_matches_by_round(round_id):
     round = Round.query.get_or_404(round_id)
     matches = Match.query.filter_by(round=round.id).all()
@@ -53,6 +57,7 @@ def list_matches_by_round(round_id):
 
 
 @matches_blueprint.route('/admin/matches/import', methods=['GET', 'POST'])
+@is_admin
 def import_csv():
     if request.method != "POST":
         return render_template('admin/upload.html')
@@ -81,6 +86,7 @@ def import_csv():
 
 
 @matches_blueprint.route('/admin/matches/new', methods=['GET'])
+@is_admin
 def create_new_matches():
 
     # TODO: Do a 2 step confirmation

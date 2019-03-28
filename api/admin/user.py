@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from app import db
 from models import User
+from client.authentication import is_admin
 
 
 user_blueprint = Blueprint(
@@ -11,6 +12,7 @@ user_blueprint = Blueprint(
 
 
 @user_blueprint.route('/admin/users/ping', methods=['GET'])
+@is_admin
 def ping_pong():
     return jsonify(
         {
@@ -21,6 +23,7 @@ def ping_pong():
 
 
 @user_blueprint.route('/admin/users', methods=['POST'])
+@is_admin
 def user_create():
     post_data = request.get_json()
     user = User(
