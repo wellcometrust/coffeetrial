@@ -9,7 +9,7 @@ db = SQLAlchemy()
 
 def create_app(script_info=None):
     # instantiate the app
-    app = Flask(__name__,  static_folder='frontend/build')
+    app = Flask(__name__,  static_folder='static')
 
     # enable CORS
     CORS(app)
@@ -26,7 +26,9 @@ def create_app(script_info=None):
     app.register_blueprint(matches_blueprint)
 
     from client.matching import matching_blueprint
+    from client.authentication import auth_blueprint
     app.register_blueprint(matching_blueprint)
+    app.register_blueprint(auth_blueprint)
 
     app.shell_context_processor({'app': app, 'db': db})
     return app
