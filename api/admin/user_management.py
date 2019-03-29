@@ -4,14 +4,14 @@ from models import User
 from client.authentication import is_admin
 
 
-user_blueprint = Blueprint(
-    'user',
+user_management_blueprint = Blueprint(
+    'user_management',
     __name__,
     template_folder='./templates'
 )
 
 
-@user_blueprint.route('/admin/users/ping', methods=['GET'])
+@user_management_blueprint.route('/admin/users/ping', methods=['GET'])
 @is_admin
 def ping_pong():
     return jsonify(
@@ -22,7 +22,7 @@ def ping_pong():
     )
 
 
-@user_blueprint.route('/admin/users', methods=['POST'])
+@user_management_blueprint.route('/admin/users', methods=['POST'])
 @is_admin
 def user_create():
     post_data = request.get_json()
