@@ -4,7 +4,8 @@ import logging
 from datetime import datetime, timedelta
 from functools import wraps
 
-from flask import Blueprint, jsonify, request, render_template, session
+from flask import (Blueprint, jsonify, request, render_template, session,
+                   redirect, url_for, flash)
 from werkzeug.exceptions import Forbidden, Unauthorized
 from app import db
 from models import User, Department
@@ -26,7 +27,7 @@ def _get_hashed_password(*args):
     return hashlib.sha256(password.encode()).hexdigest()
 
 
-def _get_logged_user():
+def get_logged_user():
     """Check if the user is logged in or is using auth token.
 
     Returns:
@@ -64,10 +65,12 @@ def is_logged(func):
     """
     @wraps(func)
     def wrapper(*args, **kwargs):
-        if _get_logged_user():
+        user = get_logged_user()
+        if user:
             return func(*args, **kwargs)
         else:
-            raise Unauthorized()
+            flash('You need to be logged in to access this page. (401)')
+            return redirect(url_for('auth.login'))
 
     return wrapper
 
@@ -87,7 +90,7 @@ def is_admin(func):
     """
     @wraps(func)
     def wrapper(*args, **kwargs):
-        user = _get_logged_user()
+        user = get_logged_user()
         if user:
             if user.is_admin:
                 return func(*args, **kwargs)
@@ -178,48 +181,56 @@ def create_account():
         fields = [
             'user_email',
             'user_password',
+            'user_confirm_password',
             'user_firstname',
             'user_lastname',
             'user_department',
         ]
 
-        logger.info(list(map(lambda x: x in fields, post_data.keys())))
-        if all(list(map(lambda x: x in fields, post_data.keys()))):
-            department = Department.query.filter_by(
-                name=post_data['user_department']
-            ).first()
-            user = User.query.filter_by(email=post_data['user_email']).first()
-            if not user:
-                user = User(
-                    firstname=post_data['user_firstname'],
-                    lastname=post_data['user_lastname'],
-                    email=post_data['user_email'],
-                    department_id=department.id,
-                    active=True,
-                )
-                user.password = _get_hashed_password(
-                    post_data['user_password']
-                )
-            else:
-                # If the user has a password, it means the account has already
-                # been created. If it hasn't, it only has been imported.
-                if user.password:
-                    return jsonify({
-                        'status': 'error',
-                        'message': 'A user with this email already exists'
-                    })
-                user.firstname = post_data['user_firstname']
-                user.lastname = post_data['user_lastname']
-                user.password = post_data['user_password']
-                user.active = True
+        missing = False
+        for field in fields:
+            if field not in post_data:
+                flash(f'You need to type in a {field}.')
+                missing = True
 
-            db.session.add(user)
-            db.session.commit()
-            return jsonify({
-                'status': 'success',
-                'user': user.to_dict(),
-                'message': 'User successfully created!'
-            })
+            if missing:
+                return redirect(url_for('auth.create_account'))
+
+        if post_data['user_password'] != post_data['user_confirm_password']:
+            flash('Your passwords are not matching.')
+            return redirect(url_for('auth.create_account'))
+
+        department = Department.query.filter_by(
+            name=post_data['user_department']
+        ).first()
+        user = User.query.filter_by(email=post_data['user_email']).first()
+        if not user:
+            user = User(
+                firstname=post_data['user_firstname'],
+                lastname=post_data['user_lastname'],
+                email=post_data['user_email'],
+                department_id=department.id,
+                active=True,
+            )
+            user.password = _get_hashed_password(
+                post_data['user_password']
+            )
+        else:
+            # If the user has a password, it means the account has already
+            # been created. If it hasn't, it only has been imported.
+            if user.password:
+                return jsonify({
+                    'status': 'error',
+                    'message': 'A user with this email already exists'
+                })
+            user.firstname = post_data['user_firstname']
+            user.lastname = post_data['user_lastname']
+            user.password = post_data['user_password']
+            user.active = True
+
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for('user.index_view'))
     else:
         departments = Department.query.all()
         return render_template('auth/signin.html', departments=departments)
