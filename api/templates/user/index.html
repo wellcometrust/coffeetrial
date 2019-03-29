@@ -2,7 +2,8 @@
 
 {% block content %}
     {% if user %}
-        <h3>Hello {{ user.fistname }}!</h3>
+        <h3>Hello {{ user.firstname }}!</h3>
+        <a href="{{ url_for('auth.logout') }}" class="button-like">Logout</a>
         <div class="dashboard">
             <div class="dashboard__current_match">
                 {% if m_user %}
@@ -12,16 +13,30 @@
                 {% endif %}
             </div>
             <hr>
-            <div class="dashboard__active {% if user.active %}text-success{% else %}text-warning{% endif %}">
-                <!-- TODO: Use a toggle button -->
-                {% if not user.active %}
-                    Your are currently not signed in for the next round. 😴
-                {% else %}
-                    You are signed in for the next round. 😁
-                {% endif %}
+            <div class="dashboard__options">
+                <h3>Your options</h3>
+                <div class="dashboard__active {% if user.active %}text-success{% else %}text-warning{% endif %}">
+                    <!-- TODO: Use a toggle button -->
+                    {% if not user.active %}
+                        Your are currently not signed in for the next round. 😴
+                    {% else %}
+                        You are signed in for the next round. 😁
+                    {% endif %}
+                </div>
+                <a href="{{ url_for('user.toggle_optin') }}" class="button-like">Change my status</a>
             </div>
-            <a href="{{ url_for('user.toggle_optin') }}" class="button-like">Change my status</a>
-
+            {% if user.is_admin %}
+            <hr>
+            <h3>Admin panel</h3>
+            <div class="dashboard__admin">
+                <div>
+                    <a href="{{ url_for('matches.export_to_csv') }}">Export current matches to CSV</a>
+                </div>
+                <div>
+                    <a href="{{ url_for('matches.import_csv') }}">Import user data and matches</a>
+                </div>
+            </div>
+            {% endif %}
         </div>
     {% endif %}
 {% endblock %}

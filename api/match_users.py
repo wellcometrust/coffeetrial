@@ -2,6 +2,7 @@ import csv
 
 from datetime import datetime
 
+from mails import send_match_email, send_unmatched_email
 from models import Match, Round, User, Department
 from app import db
 
@@ -101,12 +102,16 @@ def match_all_users():
             continue
 
         match_users(match['user'], m_user[0])
+        send_match_email(match['user'], m_user[0])
+        send_match_email(m_user[0], match['user'])
 
     unmatched_users = User.query.filter_by(
         locked=False
     ).filter_by(
         active=True
     ).all()
+    if unmatched_users:
+        send_unmatched_email(unmatched_users)
 
     return [u.to_dict() for u in unmatched_users]
 

@@ -50,3 +50,31 @@ def send_match_email(user, m_user):
         msg.attach(MIMEText(message, 'plain'))
 
         server.send_message(msg)
+
+
+def send_unmatched_email(users):
+
+    # set up the SMTP server
+    with smtplib.SMTP(app.config['SMTP_HOST'], app.config['SMTP_PORT'],
+                      timeout=10) as server:
+
+        server.starttls()
+        server.login(app.config['FROM_EMAIL'], app.config['FROM_PASSWORD'])
+        msg = MIMEMultipart()
+        message_template = read_template('mail_templates/new_match.txt')
+
+        user_emails = '\n'.join([u.email for u in users])
+        # add in the actual person name to the message template
+        message = message_template.substitute(
+            USER_EMAILS=user_emails
+        )
+
+        # setup the parameters of the message
+        msg['From'] = app.config['FROM_EMAIL']
+        msg['To'] = app.config['FROM_EMAIL']
+        msg['Subject'] = "RCT's round has some unmatched users!"
+
+        # add in the message body
+        msg.attach(MIMEText(message, 'plain'))
+
+        server.send_message(msg)
