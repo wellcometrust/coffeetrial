@@ -70,7 +70,7 @@ def is_logged(func):
             return func(*args, **kwargs)
         else:
             flash('You need to be logged in to access this page. (401)')
-            return redirect(url_for('auth.login'))
+            return redirect(url_for('auth.get_login'))
 
     return wrapper
 
