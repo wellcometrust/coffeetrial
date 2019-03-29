@@ -5,7 +5,7 @@ from datetime import datetime
 from flask.cli import FlaskGroup
 from models import User, Round
 from match_users import unlock_all_users, match_all_users, import_from_csv
-from admin.user import _get_hashed_password
+from client.authentication import _get_hashed_password
 
 from app import create_app, db
 

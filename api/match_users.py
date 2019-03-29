@@ -112,6 +112,14 @@ def match_all_users():
 
 
 def import_from_csv(csv_path, matches_csv_path):
+    """Import all data (user names, emails etc.) and previous matches from
+    given csv files.
+
+    Args:
+      * csv_path: The path to the csv containing the data about users.
+      * matches_csv_path: The path to the csv conaining data about matches.
+
+    """
     departments = set([])
     users = []
     matches = []

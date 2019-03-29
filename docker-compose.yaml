@@ -20,6 +20,9 @@ services:
       - ./datasets:/rct/datasets
     ports:
       - 5001:5000
+      - "25:25/tcp"
+      - "465:465/tcp"
+      - "587:587/tcp"
     environment:
       - FLASK_ENV=development
       - APP_SETTINGS=config.DevelopmentConfig

@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify
+from client.authentication import is_admin
 
 
 round_blueprint = Blueprint(
@@ -9,6 +10,7 @@ round_blueprint = Blueprint(
 
 
 @round_blueprint.route('/admin/round/ping', methods=['GET'])
+@is_admin
 def ping_pong():
     return jsonify(
         {

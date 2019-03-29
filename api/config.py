@@ -5,7 +5,11 @@ class BaseConfig:
     """Base configuration"""
     TESTING = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SECRET_KEY = 'my_precious'
+    SECRET_KEY = 'apiuebgo8ven834npgebubqa87uw4naoeuribudru3493ifiwenlijndagfl'
+    SMTP_HOST = 'smtp.office365.com'
+    SMTP_PORT = 587
+    FROM_EMAIL = ''
+    FROM_PASSWORD = ''
 
 
 class DevelopmentConfig(BaseConfig):

@@ -5,4 +5,6 @@ FROM rct.base
 COPY ./entrypoint.sh /rct/entrypoint.sh
 RUN chmod +x /rct/entrypoint.sh
 
+EXPOSE 25 465 587
+
 CMD ["/rct/entrypoint.sh"]
