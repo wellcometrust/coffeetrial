@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if user %}
+        <h3>Hello {{ user.fistname }}!</h3>
+        <div class="dashboard">
+            <div class="dashboard__current_match">
+                {% if m_user %}
+                    Your match for this round is {{ m_user.firstname }} {{ m_user.lastname }} ({{ m_user.email }}).
+                {% else %}
+                    Unfortunately we don't have a match for you this round. :'(
+                {% endif %}
+            </div>
+            <hr>
+            <div class="dashboard__active {% if user.active %}text-success{% else %}text-warning{% endif %}">
+                <!-- TODO: Use a toggle button -->
+                {% if not user.active %}
+                    Your are currently not signed in for the next round. 😴
+                {% else %}
+                    You are signed in for the next round. 😁
+                {% endif %}
+            </div>
+            <a href="{{ url_for('user.toggle_optin') }}" class="button-like">Change my status</a>
+
+        </div>
+    {% endif %}
+{% endblock %}
