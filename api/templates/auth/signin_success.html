@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    Account succesfully created!
+    <a href="{{ url_for('auth.get_login') }}">Take me back to the login page</a>
+{% endblock %}

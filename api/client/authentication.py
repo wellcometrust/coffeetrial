@@ -107,8 +107,10 @@ def is_admin(func):
 @auth_blueprint.route('/login', methods=['GET', 'POST'])
 def get_login():
     if request.method == 'POST':
+        is_from_api = False
         if request.get_json():
             # Request is from api
+            is_from_api = True
             post_data = request.get_json()
         else:
             # Request is from form
@@ -133,12 +135,14 @@ def get_login():
 
                 db.session.add(user)
                 db.session.commit()
-                return jsonify({
-                    'status': 'success',
-                    'message': 'Login complete',
-                    'auth_token': auth_token,
-                    'expiracy_time': user.expiracy_time,
-                })
+                if is_from_api:
+                    return jsonify({
+                        'status': 'success',
+                        'message': 'Login complete',
+                        'auth_token': auth_token,
+                        'expiracy_time': user.expiracy_time,
+                    })
+                return redirect(url_for('user.index_view'))
             else:
                 return jsonify({
                     'status': 'error',
@@ -230,7 +234,7 @@ def create_account():
 
         db.session.add(user)
         db.session.commit()
-        return redirect(url_for('user.index_view'))
+        return render_template('auth/signin_success.html')
     else:
         departments = Department.query.all()
         return render_template('auth/signin.html', departments=departments)
