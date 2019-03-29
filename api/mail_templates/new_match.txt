@@ -1,0 +1,9 @@
+Dear ${USER_NAME},
+
+For this round of coffee trial, your match is:
+
+${FIRSTNAME} ${LASTNAME}
+${EMAIL}
+
+If you have any issue contacting this person or want to change, feel free to send
+an email to the coffee trials team!

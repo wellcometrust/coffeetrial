@@ -21,6 +21,8 @@ def create_app(script_info=None):
     from admin.user_management import user_management_blueprint
     from admin.round import round_blueprint
     from admin.matches import matches_blueprint
+    from admin.emailing import emailing_blueprint
+    app.register_blueprint(emailing_blueprint)
     app.register_blueprint(user_management_blueprint)
     app.register_blueprint(round_blueprint)
     app.register_blueprint(matches_blueprint)
