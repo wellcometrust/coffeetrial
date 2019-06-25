@@ -72,7 +72,7 @@ def unlock_all_users():
     db.session.commit()
 
 
-def match_all_users():
+def match_all_users(enable_mailing=True):
     """Match all users into a pair of never matched.
 
     Uses a very basic algorithme of "Match the ones with less possibility
@@ -102,15 +102,16 @@ def match_all_users():
             continue
 
         match_users(match['user'], m_user[0])
-        send_match_email(match['user'], m_user[0])
-        send_match_email(m_user[0], match['user'])
+        if enable_mailing:
+            send_match_email(match['user'], m_user[0])
+            send_match_email(m_user[0], match['user'])
 
     unmatched_users = User.query.filter_by(
         locked=False
     ).filter_by(
         active=True
     ).all()
-    if unmatched_users:
+    if unmatched_users and enable_mailing:
         send_unmatched_email(unmatched_users)
 
     return [u.to_dict() for u in unmatched_users]
