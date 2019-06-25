@@ -2,14 +2,29 @@
 
 VIRTUALENV := build/virtualenv
 
-IMAGE := rct
-VERSION := 2019.3.1
+IMAGE := coffeetrial
+ECR_IMAGE := 160358319781.dkr.ecr.eu-west-1.amazonaws.com/uk.ac.wellcome/coffeetrial
+VERSION := 2019.6.1
 LATEST_TAG := latest
 
 
 .PHONY: docker-build
 docker-build: \
-	api
+	api-image
+
+
+
+.PHONY: api-image
+api-image:
+	docker build \
+		-t $(IMAGE):$(VERSION) \
+		-t $(IMAGE):$(LATEST_TAG) \
+		-t $(ECR_IMAGE):$(VERSION) \
+		-t $(ECR_IMAGE):$(LATEST_TAG) \
+		-f api/Dockerfile \
+		api
+
+
 
 
 $(VIRTUALENV)/.installed: requirements.txt
@@ -21,6 +36,12 @@ $(VIRTUALENV)/.installed: requirements.txt
 
 .PHONY: virtualenv
 virtualenv: $(VIRTUALENV)/.installed
+
+.PHONY: run
+run:
+	docker-compose up -d && \
+	./docker_exec.sh python3 manage.py recreate-db && \
+	./docker_exec.sh python3 manage.py new-round
 
 .PHONY: all
 all: virtualenv docker-build
