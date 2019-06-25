@@ -1,6 +1,7 @@
 import unittest
 import getpass
 import click
+from sqlalchemy.exc import ProgrammingError
 from datetime import datetime
 from flask.cli import FlaskGroup
 from models import User, Round
@@ -14,10 +15,18 @@ cli = FlaskGroup(create_app=create_app)
 
 
 @cli.command()
-def recreate_db():
-    db.drop_all()
-    db.create_all()
-    db.session.commit()
+@click.option('--force', flag_value=False)
+def recreate_db(force):
+    try:
+        r = Round.query.all()
+        if r and force:
+            print('force=True ; Dropping existing database')
+            db.drop_all()
+    except ProgrammingError:
+        print('database doesn\'t exists. Not dropping.')
+    finally:
+        db.create_all()
+        db.session.commit()
 
 
 @cli.command()
@@ -47,9 +56,7 @@ def new_round():
     db.session.commit()
 
     unlock_all_users()
-    unmatched = match_all_users()
-
-    print(unmatched)
+    unmatched = match_all_users(enable_mailing=False)
 
     return unmatched
 
