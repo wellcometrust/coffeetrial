@@ -1,0 +1,84 @@
+.button-like {
+  font-size: 1.125rem;
+  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
+  clear: none;
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0 12.5px 10px 0;
+  margin: 0 0.78125rem 0.625rem 0;
+  clear: both;
+  line-height: 22px;
+  padding-top: 9px;
+  padding-bottom: 9px;
+  height: auto;
+  float: none;
+  background-color: #B9E6EB;
+  background-image: linear-gradient(#B9E6EB 0%, #B9E6EB 50%, #62C0CE 50%, #62C0CE 100%);
+  background-size: 100% 200%;
+  background-position: 0 0;
+  transition: background-position 350ms;
+  max-width: 400px;
+  max-width: 25rem;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+  margin: 0 8px 4px 0;
+  margin: 0 0.5rem 0.25rem 0;
+  padding: 9px 15px;
+  padding: 0.5625rem 0.9375rem;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
+  display: inline-block;
+  height: 22px;
+  line-height: 22px;
+  min-width: auto;
+  overflow: visible;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: none;
+  transition: background 350ms;
+  width: auto;
+  min-width: 100px;
+}
+.button-like:hover, .button-like:focus {
+  background-position: 0 100%;
+  color: #1F2E30;
+  font-size: 1.125rem;
+}
+.button-like a {
+  color: black;
+  text-underline: none;
+  text-decoration: none;
+}
+.label {
+  font-weight: bold;
+}
+.header {
+    width: 100%;
+    background-color: #fec200;
+    padding:15px 25px;
+    margin-bottom: 15px;
+}
+
+@font-face {
+  font-family: 'Wellcome-Bold';
+  src: url('fonts/wellcome-bold-webfont.woff2') format('woff2'),
+  url('fonts/wellcome-bold-webfont.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+body {
+  font-family: "Helvetica Neue";
+  width: 100%;
+}
+
+h1 {
+  font-family: 'Wellcome-Bold';
+}
