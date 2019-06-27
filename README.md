@@ -1,4 +1,10 @@
 # ☕ Randomised Coffee Trial
+## TODO
+* Route to opt-in/out people from admin
+* Button to add a user
+* Button to create matches for the round
+* Also make it less db dependant
+
 ## Dependencies
 To run this app, you'll need:
  - Python > 3.5
@@ -9,6 +15,7 @@ To run this app, you'll need:
 To run the development server:
 ```
 make virtualenv
+make docker-build
 docker-compose up -d
 ./docker_exec.sh python manage.py recreate-db
 ```

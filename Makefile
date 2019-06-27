@@ -10,9 +10,8 @@ LATEST_TAG := latest
 
 .PHONY: docker-build
 docker-build: \
+	base-image \
 	api-image
-
-
 
 .PHONY: api-image
 api-image:
@@ -21,11 +20,16 @@ api-image:
 		-t $(IMAGE):$(LATEST_TAG) \
 		-t $(ECR_IMAGE):$(VERSION) \
 		-t $(ECR_IMAGE):$(LATEST_TAG) \
-		-f api/Dockerfile \
-		api
+		-f Dockerfile \
+		.
 
-
-
+.PHONY: base-image
+base-image:
+	docker build \
+	    -t $(IMAGE).base:$(VERSION)\
+	    -t $(IMAGE).base:$(LATEST_TAG)\
+		-f Dockerfile.base \
+		.
 
 $(VIRTUALENV)/.installed: requirements.txt
 	@if [ -d $(VIRTUALENV) ]; then rm -rf $(VIRTUALENV); fi
