@@ -17,7 +17,6 @@ To run the development server:
 make virtualenv
 make docker-build
 docker-compose up -d
-./docker_exec.sh python manage.py recreate-db
 ```
 
 You can then execute commands from within the container using:
@@ -25,23 +24,16 @@ You can then execute commands from within the container using:
 ./docker_exec.sh [COMMAND]
 ```
 
+You can pull down the whole application by running:
+```
+docker-compose down
+```
+
 ## Manage.py file
 You can use the manage.py file to create the table locally and import the data.
  - `python manage.py recreate-db` will recreate the database (drop - create - commit)
+ - `python manage.py add-superuser $FIRSTNAME $LASTNAME $EMAIL` will create a superuser for the given email after asking for a password
+ - `python manage.py new-round` will generate a first round
  - `python manage.py import-csv` will import the data from the csv datasets. This command assumes you have the following:
     - A `datasets` folder
     - Within this folder: a `dataset.csv` and a `matches.csv` file containing the user and matches data
-
-## Build and Serve front end
-
-The current version left the frontend behind to focus on primarily useful features.
-The old front end can still be used, though:
-
-The front end is built in react. Cd into the frontend folder. To build and then serve:
-- `cd frontend`
-- `npm i`
-- `npm run build`
-- In a different terminal run `pipenv shell`
-- `python manage.py run`
-- Go to localhost:5000
-If you make any changes you have to rebuild and then restart the flask server.
