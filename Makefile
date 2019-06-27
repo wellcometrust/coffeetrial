@@ -26,8 +26,8 @@ api-image:
 .PHONY: base-image
 base-image:
 	docker build \
-	    -t $(IMAGE).base:$(VERSION)\
-	    -t $(IMAGE).base:$(LATEST_TAG)\
+	    -t $(IMAGE).base:$(VERSION) \
+	    -t $(IMAGE).base:$(LATEST_TAG) \
 		-f Dockerfile.base \
 		.
 
@@ -40,12 +40,6 @@ $(VIRTUALENV)/.installed: requirements.txt
 
 .PHONY: virtualenv
 virtualenv: $(VIRTUALENV)/.installed
-
-.PHONY: run
-run:
-	docker-compose up -d && \
-	./docker_exec.sh python3 manage.py recreate-db && \
-	./docker_exec.sh python3 manage.py new-round
 
 .PHONY: all
 all: virtualenv docker-build
