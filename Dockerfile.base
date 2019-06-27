@@ -1,0 +1,26 @@
+# Use a basic Python image
+FROM python:3.6.4-slim-stretch
+
+WORKDIR /rct
+
+
+COPY ./api/admin/matches.py /rct/admin/matches.py
+COPY ./api/admin/round.py /rct/admin/round.py
+COPY ./api/admin/user_management.py /rct/admin/user_management.py
+COPY ./api/admin/emailing.py /rct/admin/emailing.py
+
+COPY ./api/client/matching.py /rct/client/matching.py
+COPY ./api/client/authentication.py /rct/client/authentication.py
+COPY ./api/client/user.py /rct/client/user.py
+
+COPY ./api/manage.py /rct/manage.py
+COPY ./api/models.py /rct/models.py
+COPY ./api/app.py /rct/app.py
+COPY ./api/config.py /rct/config.py
+
+COPY ./api/tests /rct/tests
+
+COPY ./requirements.txt /rct/requirements.txt
+
+RUN pip install -U pip
+RUN pip install -r requirements.txt
