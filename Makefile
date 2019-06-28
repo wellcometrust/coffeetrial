@@ -4,7 +4,7 @@ VIRTUALENV := build/virtualenv
 
 IMAGE := coffeetrial
 ECR_IMAGE := 160358319781.dkr.ecr.eu-west-1.amazonaws.com/uk.ac.wellcome/coffeetrial
-VERSION := 2019.6.1
+VERSION := 2019.6.9
 LATEST_TAG := latest
 
 
@@ -30,6 +30,15 @@ base-image:
 	    -t $(IMAGE).base:$(LATEST_TAG) \
 		-f Dockerfile.base \
 		.
+
+.PHONY: docker-push
+docker-push: docker-build
+	@echo "Running 'aws ecr get-login' && docker push ..."
+	@LOGIN=$$(aws ecr get-login --no-include-email --region eu-west-1) && \
+	$$LOGIN && \
+	docker push $(ECR_IMAGE):$(VERSION) && \
+	docker push $(ECR_IMAGE):$(LATEST_TAG)
+
 
 $(VIRTUALENV)/.installed: requirements.txt
 	@if [ -d $(VIRTUALENV) ]; then rm -rf $(VIRTUALENV); fi
