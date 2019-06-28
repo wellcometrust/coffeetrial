@@ -23,6 +23,12 @@ a {
   font-family: 'Wellcome-Bold', Helvetica, Arial, sans-serif;
 }
 
+.btn {
+  font-size: 14px;
+  letter-spacing: 1px;
+  padding: 0.75rem 2rem;
+}
+
 .h1 {
   font-size: 26px;
   line-height: 32px;
@@ -70,6 +76,11 @@ hr {
 .header {
   margin-bottom: 15px;
   padding: 15px 25px;
+}
+
+.footnote {
+  font-size: 14px;
+  font-weight: 500;
 }
 
 @media screen and (min-width: 601px) {
@@ -120,22 +131,15 @@ hr {
   }
 }
 
-.user__header {
+.profile__header {
   align-items: center;
   display: flex;
   flex-basis: 100%;
   margin-bottom: 0.75rem;
 }
 
-.user__name {
-  font-size: 22px;
+.profile__name {
   margin: 0 0.5rem 0 0;
-}
-
-@media screen and (min-width: 768px) {
-  .user__name {
-    font-size: 2.5rem;
-  }
 }
 
 .profile__avatar {
@@ -226,6 +230,7 @@ hr {
   .profile__details {
     display: flex;
     flex-flow: row wrap;
+    flex-basis: 100%;
   }
 }
 
@@ -236,12 +241,23 @@ hr {
   }
 }
 
+.match__contact {
+  margin-top: 2rem;
+}
+
+.match__contact .footnote {
+  margin-top: 0.5rem;
+}
 
 .match {}
 
 .match__status {
   font-size: 1.125rem;
   line-height: 1.333;
+}
+
+.match__profile-link {
+  flex-basis: 100%;
 }
 
 .btn-icon {
@@ -268,7 +284,12 @@ hr {
 }
 
 .options__menu {
+  background: #fff;
+  border: 1px solid #e1e5ed;
   display: none;
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 0;
   position: absolute;
   right: 0;
   top: 2rem;
@@ -276,4 +297,22 @@ hr {
 
 .--is-active .options__menu {
   display: block;
+}
+
+.options__menu-item {
+  margin: 0;
+  padding: 0;
+}
+
+.options__menu-link {
+  color: #454f5c;
+  display: block;
+  padding: 0.25rem 0.5rem;
+  white-space: nowrap;
+}
+
+.options__menu-link:hover {
+  background: #f2f5fa;
+  color: #454f5c;
+  text-decoration: none;
 }

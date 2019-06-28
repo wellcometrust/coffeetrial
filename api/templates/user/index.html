@@ -13,8 +13,8 @@
                         <span class="profile__avatar-initials">{{ user.firstname[0:1] }}{{ user.lastname[0:1] }}</span>
                     </div>
                 {% endif %}
-                <div class="user__header">
-                    <h2 class="user__name h2">{{ user.firstname }} {{ user.lastname }}</h2>
+                <div class="profile__header">
+                    <h2 class="profile__name h2">{{ user.firstname }} {{ user.lastname }}</h2>
                     <p class="user__status">
                         {% if not user.active %}
                         Opted out
@@ -28,18 +28,22 @@
 
                 <div class="options js-options-menu">
                     <button class="btn-icon btn-icon--options js-options-menu-toggle"><span class="btn__text">User options</span></button>
-                    <div class="options__menu user__options profile__options">
-                        <a href="{{ url_for('user.toggle_optin') }}" class="button-like">
-                            {% if user.active %}Opt out of trials{% else %}Opt in to trials{% endif %}
-                        </a>
-                        <a href="{{ url_for('auth.logout') }}" class="button-like">Logout</a>
-                    </div>
+                    <ul class="options__menu user__options profile__options">
+                        <li class="options__menu-item">
+                            <a href="{{ url_for('user.toggle_optin') }}" class="options__menu-link">
+                                {% if user.active %}Opt out of trials{% else %}Opt in to trials{% endif %}
+                            </a>
+                        </li>
+                        <li class="options__menu-item">
+                            <a href="{{ url_for('auth.logout') }}" class="options__menu-link">Logout</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </section>
         <hr>
         <section class="section match">
-            {% if m_user %}
+            {# if m_user #}
                 <h3 class="match__heading h2">Your match</h3>
                 <p class="match__status">Great news, you have a match!</p>
                 <p>This pairing has been generated randomly. Please arrange to meet up with your pairing for 30 minutes or so by <strong>28th June</strong>. After 28th June new pairings will be sent out for <strong>Round 34</strong>.</p>
@@ -47,28 +51,34 @@
                     <div class="profile__avatar" role="presentation">
                         <span class="profile__avatar-initials">SD</span>
                     </div>
-                    <p class="match__name h3">Sam {{ m_user.firstname }} {{ m_user.lastname }}</p>
+                    <h4 class="profile__header h3">Sam {{ m_user.firstname }} {{ m_user.lastname }}</h4>
                     <div class="profile__details">
                         <p class="match__job-details icon-link">D&T {{ m_user.department_id }} - {{ m_user.department_id }}</p>
                         <p class="match__email icon-link">{{ m_user.email }}email</p>
-                        <a href="#" class="link--external icon-link">Sam{{ m_user.firstname }}'s Trustnet profile</a>
+                        <a href="#" class="match__profile-link link--external icon-link">Sam{{ m_user.firstname }}'s Trustnet profile</a>
+                        <div class="match__contact">
+                            <a href="mailto:{{ m_user.email }}" class="btn btn-primary">Contact {{ m_user.firstname }}</a>
+                            <p class="footnote">Contact deadline: 28th June</p>
+                        </div>
                     </div>
-                    <a href="mailto:{{ m_user.email }}" class="btn">Contact {{ m_user.firstname }}</a>
 
                     <div class="options js-options-menu">
                         <button class="btn-icon btn-icon--options js-options-menu-toggle"><span class="btn__text">Match options</span></button>
-                        <div class="options__menu">
-                            <a href="#" class="button-like">I've already met this person</a>
-                            <a href="#" class="button-like">I know this person</a>
-                        </div>
+                        <ul class="options__menu">
+                            <li class="options__menu-item">
+                                <a href="#" class="options__menu-link">I've already met this person</a>
+                            </li>
+                            <li class="options__menu-item">
+                                <a href="#" class="options__menu-link">I know this person</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-                <p>Contact deadline: <strong>28th June</strong></p>
-            {% else %}
+            {# else %}
                 <h3 class="h2">Your match</h3>
                 <p class="match__status">Unfortunately we don't have a match for you this round.</p>
                 <p>Matches will appear here</p>
-            {% endif %}
+            {% endif #}
         </section>
         {% if user.is_admin %}
             <hr>
