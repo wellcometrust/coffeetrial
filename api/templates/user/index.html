@@ -43,7 +43,7 @@
         </section>
         <hr>
         <section class="section match">
-            {# if m_user #}
+            {% if m_user %}
                 <h3 class="match__heading h2">Your match</h3>
                 <p class="match__status">Great news, you have a match!</p>
                 <p>This pairing has been generated randomly. Please arrange to meet up with your pairing for 30 minutes or so by <strong>28th June</strong>. After 28th June new pairings will be sent out for <strong>Round 34</strong>.</p>
@@ -74,11 +74,11 @@
                         </ul>
                     </div>
                 </div>
-            {# else %}
+            {% else %}
                 <h3 class="h2">Your match</h3>
                 <p class="match__status">Unfortunately we don't have a match for you this round.</p>
                 <p>Matches will appear here</p>
-            {% endif #}
+            {% endif %}
         </section>
         {% if user.is_admin %}
             <hr>
