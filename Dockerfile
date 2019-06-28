@@ -1,5 +1,5 @@
 # Use a basic Python image
-FROM rct.base
+FROM coffeetrial.base
 
 # add entrypoint.sh
 COPY ./api/entrypoint.sh /rct/entrypoint.sh

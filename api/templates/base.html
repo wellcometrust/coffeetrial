@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=860, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable = yes">
     <title>RCT App - {% block title %}Coffee for everyone!{% endblock %}</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-grid.min.css') }}">
@@ -13,8 +12,9 @@
 </head>
 <body>
     <div class="header">
-        <h1 class="site-logo">
-            <div>☕ My Random Coffee trials</div>
+        <h1 class="site-logo h1">
+            <span class="site-logo__icon">☕</span>
+            <span class="site-logo__text">Randomised Coffee Trials</span>
         </h1>
     </div>
     <div class="container">
@@ -29,5 +29,6 @@
         {% block content %}{% endblock %}
 
     </div>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
 </body>
 </html>
