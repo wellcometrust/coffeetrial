@@ -43,19 +43,19 @@
         </section>
         <hr>
         <section class="section match">
-            {# if m_user #}
+            {% if m_user %}
                 <h3 class="match__heading h2">Your match</h3>
                 <p class="match__status">Great news, you have a match!</p>
                 <p>This pairing has been generated randomly. Please arrange to meet up with your pairing for 30 minutes or so by <strong>28th June</strong>. After 28th June new pairings will be sent out for <strong>Round 34</strong>.</p>
                 <div class="profile profile--match">
                     <div class="profile__avatar" role="presentation">
-                        <span class="profile__avatar-initials">SD</span>
+                        <span class="profile__avatar-initials">{{ user.firstname[0:1] }}{{ user.lastname[0:1] }}</span>
                     </div>
-                    <h4 class="profile__header h3">Sam {{ m_user.firstname }} {{ m_user.lastname }}</h4>
+                    <h4 class="profile__header h3">{{ m_user.firstname }} {{ m_user.lastname }}</h4>
                     <div class="profile__details">
-                        <p class="match__job-details icon-link">D&T {{ m_user.department_id }} - {{ m_user.department_id }}</p>
-                        <p class="match__email icon-link">{{ m_user.email }}email</p>
-                        <a href="#" class="match__profile-link link--external icon-link">Sam{{ m_user.firstname }}'s Trustnet profile</a>
+                        <p class="match__job-details icon-link">{{ m_user.department_id }} - {{ m_user.department_id }}</p>
+                        <p class="match__email icon-link">{{ m_user.email }}</p>
+                        <a href="#" class="match__profile-link link--external icon-link">{{ m_user.firstname }}'s Trustnet profile</a>
                         <div class="match__contact">
                             <a href="mailto:{{ m_user.email }}" class="btn btn-primary">Contact {{ m_user.firstname }}</a>
                             <p class="footnote">Contact deadline: 28th June</p>
@@ -74,11 +74,11 @@
                         </ul>
                     </div>
                 </div>
-            {# else %}
+            {% else %}
                 <h3 class="h2">Your match</h3>
                 <p class="match__status">Unfortunately we don't have a match for you this round.</p>
                 <p>Matches will appear here</p>
-            {% endif #}
+            {% endif %}
         </section>
         {% if user.is_admin %}
             <hr>
