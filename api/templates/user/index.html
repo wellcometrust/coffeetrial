@@ -2,41 +2,82 @@
 
 {% block content %}
     {% if user %}
-        <h3>Hello {{ user.firstname }}!</h3>
-        <a href="{{ url_for('auth.logout') }}" class="button-like">Logout</a>
-        <div class="dashboard">
-            <div class="dashboard__current_match">
-                {% if m_user %}
-                    Your match for this round is {{ m_user.firstname }} {{ m_user.lastname }} ({{ m_user.email }}).
+        <section class="section user">
+            <div class="profile profile--user">
+                {% if user.avatar %}
+                    <figure class="profile__avatar profile--user__avatar">
+                        <img src="" alt="" class="profile__avatar-image">
+                    </figure>
                 {% else %}
-                    Unfortunately we don't have a match for you this round. :'(
+                    <div class="profile__avatar profile--user__avatar" role="presentation">
+                        <span class="profile__avatar-initials">{{ user.firstname[0:1] }}{{ user.lastname[0:1] }}</span>
+                    </div>
                 {% endif %}
+                <div class="user__header">
+                    <h2 class="user__name h2">{{ user.firstname }} {{ user.lastname }}</h2>
+                    <p class="user__status">
+                        {% if not user.active %}
+                        Opted out
+                        {% else %}
+                        Opted in
+                        {% endif %}
+                    </p>
+                </div>
+                <p class="user__job-details icon-link">{{ user.department_id }}</p>
+                <p class="user__email icon-link">{{ user.email }}</p>
+
+                <button class="btn-icon btn-icon--options"><span class="btn__text">User options</span></button>
+                <div class="user__options profile__options">
+                    <a href="{{ url_for('user.toggle_optin') }}" class="button-like">
+                        {% if user.active %}Opt out of trials{% else %}Opt in to trials{% endif %}
+                    </a>
+                    <a href="{{ url_for('auth.logout') }}" class="button-like">Logout</a>
+                </div>
             </div>
+        </section>
+        <hr>
+        <section class="section match">
+            {# if m_user #}
+                <h3 class="match__heading h2">Your match</h3>
+                <p class="match__status">Great news, you have a match!</p>
+                <p>This pairing has been generated randomly. Please arrange to meet up with your pairing for 30 minutes or so by <strong>28th June</strong>. After 28th June new pairings will be sent out for <strong>Round 34</strong>.</p>
+                <div class="profile profile--match">
+                    <div class="profile__avatar" role="presentation">
+                        <span class="profile__avatar-initials">SD</span>
+                    </div>
+                    <p class="match__name h3">Sam {{ m_user.firstname }} {{ m_user.lastname }}</p>
+                    <div class="profile__details">
+                        <p class="match__job-details icon-link">D&T {{ m_user.department_id }} - {{ m_user.department_id }}</p>
+                        <p class="match__email icon-link">{{ m_user.email }}email</p>
+                        <a href="#" class="link--external icon-link">Sam{{ m_user.firstname }}'s Trustnet profile</a>
+                    </div>
+                    <a href="mailto:{{ m_user.email }}" class="btn">Contact {{ m_user.firstname }}</a>
+
+                    <button class="btn-icon btn-icon--options"><span class="btn__text">Match options</span></button>
+                    <div class="match__options options">
+                        <a href="#" class="button-like">I've already met this person</a>
+                        <a href="#" class="button-like">I know this person</a>
+                    </div>
+                </div>
+                <p>Contact deadline: <strong>28th June</strong></p>
+            {# else %}
+                <p class="match__status">Unfortunately we don't have a match for you this round.</p>
+                <p>Matches will appear here</p>
+            {% endif #}
+        </section>
+        {% if user.is_admin %}
             <hr>
-            <div class="dashboard__options">
-                <h3>Your options</h3>
-                <div class="dashboard__active {% if user.active %}text-success{% else %}text-warning{% endif %}">
-                    <!-- TODO: Use a toggle button -->
-                    {% if not user.active %}
-                        Your are currently not signed in for the next round. 😴
-                    {% else %}
-                        You are signed in for the next round. 😁
-                    {% endif %}
+            <section>
+                <h3 class="h2">Admin panel</h3>
+                <div class="dashboard__admin">
+                    <div>
+                        <a href="{{ url_for('matches.export_to_csv') }}">Export current matches to CSV</a>
+                    </div>
+                    <div>
+                        <a href="{{ url_for('matches.import_csv') }}">Import user data and matches</a>
+                    </div>
                 </div>
-                <a href="{{ url_for('user.toggle_optin') }}" class="button-like">Change my status</a>
-            </div>
-            {% if user.is_admin %}
-            <hr>
-            <h3>Admin panel</h3>
-            <div class="dashboard__admin">
-                <div>
-                    <a href="{{ url_for('matches.export_to_csv') }}">Export current matches to CSV</a>
-                </div>
-                <div>
-                    <a href="{{ url_for('matches.import_csv') }}">Import user data and matches</a>
-                </div>
-            </div>
-            {% endif %}
-        </div>
+            </section>
+        {% endif %}
     {% endif %}
 {% endblock %}

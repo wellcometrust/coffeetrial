@@ -1,72 +1,3 @@
-.button-like {
-  font-size: 1.125rem;
-  margin-bottom: 8px;
-  margin-bottom: 0.5rem;
-  clear: none;
-  display: block;
-  box-sizing: border-box;
-  width: 100%;
-  margin: 0 12.5px 10px 0;
-  margin: 0 0.78125rem 0.625rem 0;
-  clear: both;
-  line-height: 22px;
-  padding-top: 9px;
-  padding-bottom: 9px;
-  height: auto;
-  float: none;
-  background-color: #B9E6EB;
-  background-image: linear-gradient(#B9E6EB 0%, #B9E6EB 50%, #62C0CE 50%, #62C0CE 100%);
-  background-size: 100% 200%;
-  background-position: 0 0;
-  transition: background-position 350ms;
-  max-width: 400px;
-  max-width: 25rem;
-  -webkit-box-sizing: content-box;
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
-  -webkit-box-shadow: none !important;
-  -moz-box-shadow: none !important;
-  box-shadow: none !important;
-  margin: 0 8px 4px 0;
-  margin: 0 0.5rem 0.25rem 0;
-  padding: 9px 15px;
-  padding: 0.5625rem 0.9375rem;
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  appearance: none;
-  border: none;
-  display: inline-block;
-  height: 22px;
-  line-height: 22px;
-  min-width: auto;
-  overflow: visible;
-  text-align: center;
-  text-decoration: none;
-  text-shadow: none;
-  transition: background 350ms;
-  width: auto;
-  min-width: 100px;
-}
-.button-like:hover, .button-like:focus {
-  background-position: 0 100%;
-  color: #1F2E30;
-  font-size: 1.125rem;
-}
-.button-like a {
-  color: black;
-  text-underline: none;
-  text-decoration: none;
-}
-.label {
-  font-weight: bold;
-}
-.header {
-    width: 100%;
-    background-color: #fec200;
-    padding:15px 25px;
-    margin-bottom: 15px;
-}
-
 @font-face {
   font-family: 'Wellcome-Bold';
   src: url('fonts/wellcome-bold-webfont.woff2') format('woff2'),
@@ -74,11 +5,266 @@
   font-weight: bold;
   font-style: normal;
 }
+
 body {
-  font-family: "Helvetica Neue";
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: 1.63;
   width: 100%;
 }
 
-h1 {
-  font-family: 'Wellcome-Bold';
+a {
+  color: #2d5aec;
+}
+
+.h1,
+.h2,
+.h3,
+.btn{
+  font-family: 'Wellcome-Bold', Helvetica, Arial, sans-serif;
+}
+
+.h1 {
+  font-size: 26px;
+  line-height: 32px;
+}
+
+.h2 {
+  font-size: 22px;
+  line-height: 28px;
+}
+
+.h3 {
+  font-size: 18px;
+  line-height: 24px;
+}
+
+hr {
+  margin: 2rem 0;
+}
+
+@media screen and (min-width: 601px) {
+  .h1 {
+    font-size: 40px;
+    line-height: 56px;
+  }
+
+  .h2 {
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  .h3 {
+    font-size: 26px;
+    line-height: 32px;
+  }
+
+  hr {
+    margin: 2.5rem 0;
+  }
+}
+
+.label {
+  font-weight: bold;
+}
+
+.header {
+  margin-bottom: 15px;
+  padding: 15px 25px;
+}
+
+@media screen and (min-width: 601px) {
+  .header {
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .site-logo__icon::after {
+    content: " RCT"
+  }
+
+  .site-logo__text {
+    display: none;
+  }
+}
+
+.profile {
+  position: relative;
+}
+
+.profile--user {
+  min-height: 6.5rem;
+}
+
+@media screen and (min-width: 601px) {
+  .profile {
+    align-content: flex-start;
+    align-items: center;
+    display: flex;
+    flex-flow: row wrap;
+    padding-left: 4.5rem;
+  }
+
+  .profile--user {
+    padding-left: 6rem;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .profile {
+    padding-left: 5rem;
+  }
+
+  .profile--user {
+    padding-left: 7.5rem;
+  }
+}
+
+.profile__options {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.user__header {
+  align-items: center;
+  display: flex;
+  flex-basis: 100%;
+  margin-bottom: 0.75rem;
+}
+
+.user__name {
+  font-size: 22px;
+  margin: 0 0.5rem 0 0;
+}
+
+@media screen and (min-width: 768px) {
+  .user__name {
+    font-size: 2.5rem;
+  }
+}
+
+.profile__avatar {
+  align-items: center;
+  background: #7557c7;
+  border-radius: 50rem;
+  color: #fff;
+  display: flex;
+  font-size: 1rem;
+  height: 3.5em;
+  justify-content: center;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  width: 3.5em;
+}
+
+.profile--user__avatar {
+  font-size: 1.375em;
+  height: 5rem;
+  width: 5rem;
+}
+
+@media screen and (min-width: 601px) {
+  .profile__avatar {
+    left: 0;
+    position: absolute;
+    top: 0;
+  }
+
+@media screen and (min-width: 992px) {
+  .profile__avatar {
+    font-size: 26px;
+    height: 4rem;
+    width: 4rem;
+  }
+
+  .profile--user__avatar {
+    font-size: 2rem;
+    height: 6rem;
+    width: 6rem;
+  }
+}
+
+.user__status {
+  background: #657689;
+  border-radius: 0.25rem;
+  color: #f7f9fc;
+  display: inline-flex;
+  font-size: 0.75rem;
+  font-weight: bold;
+  letter-spacing: 1.3px;
+  margin-bottom: 0;
+  padding: 0.125rem 0.5rem;
+  text-transform: uppercase;
+}
+
+.user__email,
+.user__job-details {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  margin: 0;
+}
+
+.icon-link {
+  background: 0 50% no-repeat;
+  background-size: 20px auto;
+  display: block;
+  margin-right: 24px;
+  padding-left: 28px;
+}
+
+.user__email,
+.match__email {
+  background-image: url("../img/mail.svg");
+}
+
+.user__job-details,
+.match__job-details {
+  background-image: url("../img/job.svg");
+}
+
+.link--external {
+  background-image: url("../img/open-external.svg");
+}
+
+@media screen and (min-width: 601px) {
+  .profile__details {
+    display: flex;
+    flex-flow: row wrap;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .user__email,
+  .user__job-details {
+    font-size: 1.25rem;
+  }
+}
+
+
+.match {}
+
+.match__status {
+  font-size: 1.125rem;
+  line-height: 1.333;
+}
+
+.btn-icon {
+  background: 50% 50% no-repeat;
+  background-size: 20px auto;
+  border: none;
+  height: 2rem;
+  width: 2rem;
+}
+
+.btn-icon .btn__text {
+  display: none;
+}
+
+.btn-icon--options {
+  background-image: url("../img/onyx.svg");
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: rotate(90deg);
 }
