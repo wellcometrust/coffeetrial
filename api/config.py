@@ -25,4 +25,10 @@ class TestingConfig(BaseConfig):
 
 class ProductionConfig(BaseConfig):
     """Production configuration"""
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+    SQLALCHEMY_DATABASE_URI = \
+        "postgresql://{user}:{password}" \
+        "@{host}/coffeetrial?sslmode=require".format(
+            user=os.environ['DATABASE_USER'],
+            password=os.environ['DATABASE_PASSWORD'],
+            host=os.environ['PGHOST']
+        )

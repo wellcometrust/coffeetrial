@@ -1,4 +1,7 @@
 #!/bin/sh
+python3 manage.py recreate-db;
+python3 manage.py new-round;
+
 if [ "$FLASK_ENV" = "development" ]; then
     python3 manage.py run -h0.0.0.0;
 else
