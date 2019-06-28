@@ -269,3 +269,13 @@ hr {
   top: 0;
   transform: rotate(90deg);
 }
+
+.options {}
+
+.options__menu {
+  display: none;
+}
+
+.--is-active .options__menu {
+  display: block;
+}

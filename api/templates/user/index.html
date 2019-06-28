@@ -26,12 +26,14 @@
                 <p class="user__job-details icon-link">{{ user.department_id }}</p>
                 <p class="user__email icon-link">{{ user.email }}</p>
 
-                <button class="btn-icon btn-icon--options"><span class="btn__text">User options</span></button>
-                <div class="user__options profile__options">
-                    <a href="{{ url_for('user.toggle_optin') }}" class="button-like">
-                        {% if user.active %}Opt out of trials{% else %}Opt in to trials{% endif %}
-                    </a>
-                    <a href="{{ url_for('auth.logout') }}" class="button-like">Logout</a>
+                <div class="options js-options-menu">
+                    <button class="btn-icon btn-icon--options js-options-menu-toggle"><span class="btn__text">User options</span></button>
+                    <div class="options__menu user__options profile__options">
+                        <a href="{{ url_for('user.toggle_optin') }}" class="button-like">
+                            {% if user.active %}Opt out of trials{% else %}Opt in to trials{% endif %}
+                        </a>
+                        <a href="{{ url_for('auth.logout') }}" class="button-like">Logout</a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -53,10 +55,12 @@
                     </div>
                     <a href="mailto:{{ m_user.email }}" class="btn">Contact {{ m_user.firstname }}</a>
 
-                    <button class="btn-icon btn-icon--options"><span class="btn__text">Match options</span></button>
-                    <div class="match__options options">
-                        <a href="#" class="button-like">I've already met this person</a>
-                        <a href="#" class="button-like">I know this person</a>
+                    <div class="options js-options-menu">
+                        <button class="btn-icon btn-icon--options js-options-menu-toggle"><span class="btn__text">Match options</span></button>
+                        <div class="options__menu">
+                            <a href="#" class="button-like">I've already met this person</a>
+                            <a href="#" class="button-like">I know this person</a>
+                        </div>
                     </div>
                 </div>
                 <p>Contact deadline: <strong>28th June</strong></p>
