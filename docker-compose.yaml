@@ -7,7 +7,7 @@ services:
     ports:
       - 5432:5432
     environment:
-        POSTGRES_PASSWORD: development
+      POSTGRES_PASSWORD: development
     volumes:
       - ./db/initdb:/docker-entrypoint-initdb.d
 
