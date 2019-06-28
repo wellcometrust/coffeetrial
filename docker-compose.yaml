@@ -7,14 +7,12 @@ services:
     ports:
       - 5432:5432
     environment:
-        POSTGRES_PASSWORD: development
+      POSTGRES_PASSWORD: development
     volumes:
       - ./db/initdb:/docker-entrypoint-initdb.d
 
   api:
-    build:
-      context: ./
-      dockerfile: Dockerfile
+    image: coffeetrial:latest
     volumes:
       - ./api:/rct
       - ./datasets:/rct/datasets
@@ -28,6 +26,9 @@ services:
       - APP_SETTINGS=config.DevelopmentConfig
       - DATABASE_URL=postgresql://postgres:development@db:5432/rct
       - DATABASE_TEST_URL=postgresql://postgres:development@db:5432/rct_test
+
+    links:
+      - db
 
   # client:
   #   build:

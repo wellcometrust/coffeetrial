@@ -26,8 +26,8 @@ api-image:
 .PHONY: base-image
 base-image:
 	docker build \
-	    -t $(IMAGE).base:$(VERSION)\
-	    -t $(IMAGE).base:$(LATEST_TAG)\
+	    -t $(IMAGE).base:$(VERSION) \
+	    -t $(IMAGE).base:$(LATEST_TAG) \
 		-f Dockerfile.base \
 		.
 

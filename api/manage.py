@@ -4,7 +4,7 @@ import click
 from sqlalchemy.exc import ProgrammingError
 from datetime import datetime
 from flask.cli import FlaskGroup
-from models import User, Round
+from models import User, Round, Department
 from match_users import unlock_all_users, match_all_users, import_from_csv
 from client.authentication import _get_hashed_password
 
@@ -70,11 +70,19 @@ def new_round():
 def add_superuser(firstname, lastname, email, password=None):
     if not password:
         password = getpass()
+    d = Department.query.filter_by(name='admins').first()
+
+    if not d:
+        d = Department('admins')
+        db.session.add(d)
+        db.session.commit()
+
     s_user = User(
         firstname=firstname,
         lastname=lastname,
         email=email,
         active=True,
+        department_id=d.id
     )
     s_user.password = _get_hashed_password(password)
     s_user.is_admin = True
