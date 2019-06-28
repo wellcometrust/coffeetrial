@@ -120,12 +120,6 @@ hr {
   }
 }
 
-.profile__options {
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-
 .user__header {
   align-items: center;
   display: flex;
@@ -264,16 +258,20 @@ hr {
 
 .btn-icon--options {
   background-image: url("../img/onyx.svg");
-  position: absolute;
-  right: 0;
-  top: 0;
   transform: rotate(90deg);
 }
 
-.options {}
+.options {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
 
 .options__menu {
   display: none;
+  position: absolute;
+  right: 0;
+  top: 2rem;
 }
 
 .--is-active .options__menu {
