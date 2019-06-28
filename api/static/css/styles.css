@@ -19,14 +19,19 @@ a {
 .h1,
 .h2,
 .h3,
-.btn{
+.btn {
   font-family: 'Wellcome-Bold', Helvetica, Arial, sans-serif;
 }
 
 .btn {
+  border-radius: 0.5rem;
   font-size: 14px;
   letter-spacing: 1px;
   padding: 0.75rem 2rem;
+}
+
+.btn-primary {
+  background: #2d5aec;
 }
 
 .h1 {
@@ -49,6 +54,12 @@ hr {
 }
 
 @media screen and (min-width: 601px) {
+  hr {
+    margin: 2.5rem 0;
+  }
+}
+
+@media screen and (min-width: 992px) {
   .h1 {
     font-size: 40px;
     line-height: 56px;
@@ -63,10 +74,6 @@ hr {
     font-size: 26px;
     line-height: 32px;
   }
-
-  hr {
-    margin: 2.5rem 0;
-  }
 }
 
 .label {
@@ -77,6 +84,19 @@ hr {
   margin-bottom: 15px;
   padding: 15px 25px;
 }
+
+@media screen and (min-width: 601px) {
+  .header {
+    padding: 3.5rem 0;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .header {
+    padding: 2.5rem 0;
+  }
+}
+
 
 .footnote {
   font-size: 14px;
@@ -144,7 +164,7 @@ hr {
 
 .profile__avatar {
   align-items: center;
-  background: #7557c7;
+  background: #376ca7;
   border-radius: 50rem;
   color: #fff;
   display: flex;
@@ -157,6 +177,7 @@ hr {
 }
 
 .profile--user__avatar {
+  background: #7557c7;
   font-size: 1.375em;
   height: 5rem;
   width: 5rem;
