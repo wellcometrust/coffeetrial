@@ -27,6 +27,25 @@ def _get_hashed_password(*args):
     return hashlib.sha256(password.encode()).hexdigest()
 
 
+def get_ms_user(user_email):
+    user = User.query.filter_by(email=user_email).first()
+    if not user:
+        return
+    auth_token = _get_hashed_password(
+        user.email,
+        str(datetime.now()),
+        user.password,
+    )
+    user.auth_token = auth_token
+    user.expiracy_time = datetime.now() + timedelta(days=1)
+    session['auth_token'] = auth_token
+    session['auth_user'] = user.email
+
+    db.session.add(user)
+    db.session.commit()
+    return user
+
+
 def get_logged_user():
     """Check if the user is logged in or is using auth token.
 
@@ -34,6 +53,13 @@ def get_logged_user():
       * bool: True if a user is authenticated, else False.
     """
     auth_token = None
+    # Check header for MS token
+    if request.headers.get('X-Forwarded-Email'):
+        user_email = request.headers.get('X-Forwarded-Email')
+        db_user = get_ms_user(user_email)
+        if db_user:
+            return db_user
+
     # If user is in session, uses session
     if session.get('auth_token') and session.get('auth_user'):
         auth_token = session.get('auth_token')

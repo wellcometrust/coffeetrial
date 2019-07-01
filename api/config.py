@@ -28,7 +28,7 @@ class ProductionConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI = \
         "postgresql://{user}:{password}" \
         "@{host}/coffeetrial?sslmode=require".format(
-            user=os.environ['DATABASE_USER'],
-            password=os.environ['DATABASE_PASSWORD'],
-            host=os.environ['PGHOST']
+            user=os.getenv('DATABASE_USER'),
+            password=os.getenv('DATABASE_PASSWORD'),
+            host=os.getenv('PGHOST')
         )

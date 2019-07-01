@@ -4,7 +4,7 @@ VIRTUALENV := build/virtualenv
 
 IMAGE := coffeetrial
 ECR_IMAGE := 160358319781.dkr.ecr.eu-west-1.amazonaws.com/uk.ac.wellcome/coffeetrial
-VERSION := 2019.6.9
+VERSION := 2019.6.11
 LATEST_TAG := latest
 
 

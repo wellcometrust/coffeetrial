@@ -2,6 +2,7 @@ import os
 from flask_cors import CORS
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 # Instantiate the database
 db = SQLAlchemy()
@@ -10,6 +11,7 @@ db = SQLAlchemy()
 def create_app(script_info=None):
     # instantiate the app
     app = Flask(__name__,  static_folder='static')
+    app.wsgi_app = ProxyFix(app.wsgi_app)
 
     # enable CORS
     CORS(app)
