@@ -52,9 +52,9 @@ virtualenv: $(VIRTUALENV)/.installed
 
 .PHONY: run
 run:
-	docker-compose up -d && \
+	docker-compose down; docker-compose up -d && \
 	./docker_exec.sh python3 manage.py recreate-db && \
 	./docker_exec.sh python3 manage.py new-round
 
 .PHONY: all
-all: virtualenv docker-build
+all: virtualenv docker-build run

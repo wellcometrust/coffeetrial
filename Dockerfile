@@ -2,9 +2,9 @@
 FROM coffeetrial.base
 
 # add entrypoint.sh
-COPY ./api/entrypoint.sh /rct/entrypoint.sh
-RUN chmod +x /rct/entrypoint.sh
+COPY ./api/entrypoint.sh entrypoint.sh
+RUN chmod +x entrypoint.sh
 
 EXPOSE 25 465 587
 
-CMD ["/rct/entrypoint.sh"]
+CMD ["./entrypoint.sh"]

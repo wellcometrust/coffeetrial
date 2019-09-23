@@ -17,14 +17,15 @@ services:
       - ./api:/rct
       - ./datasets:/rct/datasets
     ports:
-      - 5001:5000
+      - 5000:5000
       - "25:25/tcp"
       - "465:465/tcp"
       - "587:587/tcp"
     environment:
-      - FLASK_ENV=development
+      - DATABASE_PASSWORD=development
+      - PGHOST=db
+      - DATABASE_USER=postgres
       - APP_SETTINGS=config.DevelopmentConfig
-      - DATABASE_URL=postgresql://postgres:development@db:5432/rct
       - DATABASE_TEST_URL=postgresql://postgres:development@db:5432/rct_test
 
     links:
